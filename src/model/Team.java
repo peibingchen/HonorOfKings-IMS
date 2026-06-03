@@ -36,6 +36,17 @@ public class Team implements Reportable {
         }
     }
 
+    public boolean removeMember(String playerId) {
+        for (Player player : new ArrayList<>(members)) {
+            if (player.getId().equals(playerId)) {
+                members.remove(player);
+                player.setTeam(null);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Player> getMembers() {
         return Collections.unmodifiableList(members);
     }

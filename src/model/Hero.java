@@ -30,20 +30,55 @@ public class Hero implements Reportable {
         return name;
     }
 
+    public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Hero name cannot be empty.");
+        }
+        this.name = name.trim();
+    }
+
     public HeroType getType() {
         return type;
+    }
+
+    public void setType(HeroType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Hero type cannot be null.");
+        }
+        this.type = type;
     }
 
     public int getAttack() {
         return attack;
     }
 
+    public void setAttack(int attack) {
+        if (attack < 0) {
+            throw new IllegalArgumentException("Attack cannot be negative.");
+        }
+        this.attack = attack;
+    }
+
     public int getDefense() {
         return defense;
     }
 
+    public void setDefense(int defense) {
+        if (defense < 0) {
+            throw new IllegalArgumentException("Defense cannot be negative.");
+        }
+        this.defense = defense;
+    }
+
     public int getHealth() {
         return health;
+    }
+
+    public void setHealth(int health) {
+        if (health <= 0) {
+            throw new IllegalArgumentException("Health must be positive.");
+        }
+        this.health = health;
     }
 
     public void addCompatibleEquipment(Equipment equipment) {
