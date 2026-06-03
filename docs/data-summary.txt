@@ -1,0 +1,62 @@
+# Honor of Kings IMS Data Summary
+
+Players
+P001 | Chen Wei | team=Red Phoenix | level=38 | winRate=70.0%
+P002 | Lin Hao | team=Red Phoenix | level=35 | winRate=64.6%
+P003 | Zhou Yu | team=Red Phoenix | level=41 | winRate=73.6%
+P004 | Wang Lei | team=Red Phoenix | level=30 | winRate=52.9%
+P005 | Liu Xin | team=Red Phoenix | level=33 | winRate=59.6%
+P006 | Xu Ran | team=Blue Dragon | level=39 | winRate=70.8%
+P007 | Sun Qiao | team=Blue Dragon | level=28 | winRate=50.6%
+P008 | He Ming | team=Blue Dragon | level=36 | winRate=67.3%
+P009 | Tang Yi | team=Blue Dragon | level=32 | winRate=59.1%
+P010 | Guo Chen | team=Blue Dragon | level=37 | winRate=67.6%
+P011 | Fan Yue | team=Silver Moon | level=31 | winRate=56.2%
+P012 | Jiang Nan | team=Silver Moon | level=34 | winRate=63.2%
+P013 | Song Kai | team=Silver Moon | level=29 | winRate=53.9%
+P014 | Qin Mo | team=Silver Moon | level=40 | winRate=72.2%
+P015 | Ye Xuan | team=Silver Moon | level=27 | winRate=50.0%
+
+Teams
+T001 | Red Phoenix | members=5 | avgLevel=35.4 | matches=485 | winRate=64.7% | topPlayer=Zhou Yu
+T002 | Blue Dragon | members=5 | avgLevel=34.4 | matches=479 | winRate=63.7% | topPlayer=Xu Ran
+T003 | Silver Moon | members=5 | avgLevel=32.2 | matches=469 | winRate=59.7% | topPlayer=Qin Mo
+
+Heroes
+H001 | Li Bai | ASSASSIN | atk=92 | def=48 | hp=3200
+H002 | Diao Chan | MAGE | atk=84 | def=42 | hp=3000
+H003 | Arthur | TANK | atk=70 | def=82 | hp=4200
+H004 | Hou Yi | MARKSMAN | atk=88 | def=40 | hp=2900
+H005 | Zhang Fei | SUPPORT | atk=66 | def=86 | hp=4400
+H006 | Luna | ASSASSIN | atk=90 | def=46 | hp=3100
+H007 | Angela | MAGE | atk=86 | def=38 | hp=2800
+H008 | Sun Shangxiang | MARKSMAN | atk=91 | def=39 | hp=2850
+H009 | Bai Qi | TANK | atk=68 | def=88 | hp=4550
+H010 | Yao | SUPPORT | atk=58 | def=65 | hp=3300
+H011 | Mulan | WARRIOR | atk=87 | def=62 | hp=3600
+H012 | Zhao Yun | WARRIOR | atk=85 | def=66 | hp=3700
+H013 | Wang Zhaojun | MAGE | atk=83 | def=41 | hp=2950
+H014 | Marco Polo | MARKSMAN | atk=89 | def=37 | hp=2820
+H015 | Lan | ASSASSIN | atk=93 | def=45 | hp=3050
+
+Equipment
+E001 | Shadow Blade | ATTACK | power=180 | rating=4.6 | usage=2 | score=10.40
+E002 | Storm Sword | ATTACK | power=200 | rating=4.4 | usage=2 | score=10.40
+E003 | Doomsday | ATTACK | power=190 | rating=4.5 | usage=2 | score=10.40
+E004 | Frost Staff | MAGIC | power=150 | rating=4.3 | usage=2 | score=9.80
+E005 | Arcane Boots | MOVEMENT | power=80 | rating=4.0 | usage=2 | score=8.80
+E006 | Sage Tome | MAGIC | power=210 | rating=4.7 | usage=2 | score=10.80
+E007 | Guardian Armor | DEFENSE | power=220 | rating=4.2 | usage=2 | score=10.40
+E008 | Revival Shield | DEFENSE | power=240 | rating=4.6 | usage=2 | score=11.00
+E009 | Swift Boots | MOVEMENT | power=90 | rating=4.1 | usage=2 | score=9.00
+E010 | Holy Grail | SUPPORT | power=130 | rating=4.2 | usage=2 | score=9.50
+E011 | Blood Bow | ATTACK | power=175 | rating=4.0 | usage=3 | score=11.75
+E012 | Dragon Spear | ATTACK | power=195 | rating=4.5 | usage=3 | score=12.45
+E013 | Magic Orb | MAGIC | power=185 | rating=4.4 | usage=3 | score=12.25
+E014 | Ice Guard | DEFENSE | power=205 | rating=4.1 | usage=3 | score=12.15
+E015 | Fleet Boots | MOVEMENT | power=95 | rating=4.2 | usage=3 | score=11.15
+E016 | Healing Stone | SUPPORT | power=120 | rating=4.0 | usage=2 | score=9.20
+E017 | Phoenix Cape | DEFENSE | power=230 | rating=4.3 | usage=2 | score=10.60
+E018 | Thunder Staff | MAGIC | power=215 | rating=4.6 | usage=2 | score=10.75
+E019 | Piercing Dagger | ATTACK | power=160 | rating=4.2 | usage=2 | score=9.80
+E020 | Team Banner | SUPPORT | power=140 | rating=4.5 | usage=2 | score=9.90
