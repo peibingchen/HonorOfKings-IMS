@@ -1,15 +1,15 @@
-# Honor of Kings IMS - Design Draft
+# Honor of Kings IMS - Core Design Document
 
 ## 1. Design Overview
 
-This document describes the draft design of the Honor of Kings Information Management System. The system is implemented as a Java console application with a simple layered structure:
+This document describes the core design of the Honor of Kings Information Management System. The design focuses on completing the required coursework features first. Extra-credit features such as GUI, combat simulation, and recommendation engine are not included in this version and will be considered only after the core requirements are stable.
 
-- `model`: domain classes such as players, heroes, equipment, teams, and match records.
-- `service`: business logic such as authentication, searching, ranking, storage, and data management.
+The project is a Java console application with a layered structure:
+
+- `model`: domain classes for users, players, heroes, equipment, teams, and match records.
+- `service`: application logic for authentication, data management, searching, ranking, and file output.
 - `util`: helper classes for sample data and console input.
 - `Main`: the console entry point and menu controller.
-
-The design follows the coursework requirement that the project should demonstrate object-oriented programming rather than placing all logic in one large `Main` class.
 
 ## 2. Package Structure
 
@@ -38,163 +38,95 @@ src/
   util/
     DataInitializer.java
     InputHelper.java
+docs/
+  plan.md
+  design.md
+  test-cases.md
+ai/
+  prompts.md
+  agent-log.md
+  reflection.md
+UML.md
+README.md
+git-history.txt
 ```
 
-## 3. Main Class Responsibility
+## 3. UML
 
-`Main` is responsible for:
+The standalone UML file is stored at `UML.md` in the project root. It documents the same core design described in this file.
 
-- starting the application;
-- showing the login menu;
-- showing the main menu after login;
-- calling service classes based on user choices;
-- printing formatted results to the console.
-
-`Main` does not store the main data directly. Data is stored in `GameDataManager`, while search and ranking logic is placed in separate service classes.
-
-## 4. Model Classes
+## 4. Model Design
 
 ### Person
 
-`Person` is an abstract superclass for system users. It contains shared user fields:
-
-- `id`
-- `name`
-- `password`
-- `role`
-
-It also provides common behavior such as checking a password and updating a valid name.
+`Person` is an abstract superclass for system users. It stores ID, name, password, and role. It provides shared behavior for checking passwords and updating basic user information.
 
 ### Player
 
-`Player` extends `Person` and represents a game player. It contains:
-
-- level;
-- wins and losses;
-- team reference;
-- owned heroes.
-
-It calculates total matches and win rate from wins and losses.
+`Player` extends `Person`. It stores level, wins, losses, team, and owned heroes. It calculates total matches and win rate. Players can view their information, owned heroes, and match history.
 
 ### Admin
 
-`Admin` extends `Person` and represents a user with data-management permission. Admin-specific behavior is currently handled through role checks in the menu and service layer.
+`Admin` extends `Person`. Admin users have permission to manage system data through the admin menu.
 
 ### Hero
 
-`Hero` represents a playable hero. It contains:
-
-- hero ID and name;
-- hero type;
-- attack, defense, and health;
-- compatible equipment.
-
-Each hero can have multiple compatible equipment items.
+`Hero` represents a playable hero. It stores hero ID, name, hero type, attack, defense, health, and compatible equipment.
 
 ### Equipment
 
-`Equipment` represents an item that can be used by heroes. It contains:
+`Equipment` represents an item that can be used by heroes. It stores equipment ID, name, type, power, rating, and usage count.
 
-- equipment ID and name;
-- equipment type;
-- power;
-- rating;
-- usage count.
-
-The equipment ranking score is calculated as:
+The equipment ranking formula is:
 
 ```text
-usageCount * 2 + rating + power / 100
+score = usageCount * 2 + rating + power / 100
 ```
-
-This formula gives more weight to equipment that is used by more heroes while still considering rating and power.
 
 ### Team
 
-`Team` represents a group of players. It contains:
-
-- team ID and name;
-- a list of members.
-
-It calculates:
-
-- average level;
-- total matches;
-- team win rate;
-- top player.
-
-The top player is selected by win rate first, then level if win rates are tied.
+`Team` contains multiple players. It calculates average level, total matches, win rate, and top player. The top player is selected by win rate first, then level.
 
 ### MatchRecord
 
-`MatchRecord` represents one match. It contains:
-
-- match ID;
-- team;
-- opponent;
-- date;
-- result;
-- hero picks.
-
-Hero picks are stored as a map from `Player` to `Hero`.
+`MatchRecord` stores one match result, including team, opponent, date, result, and hero picks.
 
 ## 5. Interfaces and Enums
 
-### Reportable
-
-`Reportable` is a simple interface for classes that can provide a formatted text report:
+`Reportable` is used by classes that can produce a readable report:
 
 ```java
 String getReport();
 ```
 
-The interface is implemented by `Player`, `Hero`, `Equipment`, `Team`, and `MatchRecord`.
-
-### Enums
-
-The project uses enums to avoid unclear string values:
+The project uses these enums:
 
 - `Role`: `ADMIN`, `PLAYER`
 - `HeroType`: `TANK`, `WARRIOR`, `ASSASSIN`, `MAGE`, `MARKSMAN`, `SUPPORT`
 - `EquipmentType`: `ATTACK`, `MAGIC`, `DEFENSE`, `MOVEMENT`, `SUPPORT`
 - `MatchResult`: `WIN`, `LOSS`
 
-## 6. Service Classes
+## 6. Service Design
 
 ### GameDataManager
 
-`GameDataManager` is the central data container. It stores:
-
-- users;
-- players;
-- admins;
-- heroes;
-- equipment;
-- teams;
-- match records.
-
-It uses maps for ID-based lookup and a list for match records. It also checks duplicate IDs before adding data.
+`GameDataManager` owns the in-memory data collections. It stores users, players, admins, heroes, equipment, teams, and match records. It also handles adding records, deleting records, and duplicate ID checks.
 
 ### AuthenticationService
 
-`AuthenticationService` handles:
-
-- login;
-- logout;
-- current logged-in user.
-
-It uses `Person` as the current user type, which supports polymorphism because the logged-in user may be either an `Admin` or a `Player`.
+`AuthenticationService` handles login, logout, and current-user state. It stores the current user as `Person`, which demonstrates polymorphism because the logged-in user may be an `Admin` or a `Player`.
 
 ### SearchService
 
 `SearchService` handles:
 
-- player search by ID or name;
-- team search by ID or name;
-- hero search by ID or name;
+- player lookup;
+- team lookup;
+- hero lookup;
 - finding players who own a hero;
-- finding recent matches for a player;
-- finding recent matches for a team.
+- recent match history for a player;
+- recent match history for a team;
+- hero pick rate calculation.
 
 ### RankingService
 
@@ -203,19 +135,19 @@ It uses `Person` as the current user type, which supports polymorphism because t
 - top players by win rate;
 - top players by level;
 - top players by number of matches;
-- equipment ranking by custom score.
+- equipment ranking by score.
 
-The current console menu mainly displays the win-rate leaderboard, but the service already contains other ranking methods for future menu extension.
+Leaderboard tie handling is based on the selected metric first, then win rate, level, and name where applicable.
 
 ### FileStorageService
 
-`FileStorageService` currently saves a readable data summary to a text file. This is a draft persistence feature. A later version can extend it to save and load complete structured data.
+`FileStorageService` saves a readable system data summary to a text file. This provides the required file I/O evidence for the core version.
 
-## 7. Utility Classes
+## 7. Utility Design
 
 ### DataInitializer
 
-`DataInitializer` creates the sample dataset required by the coursework:
+`DataInitializer` creates the required starting dataset:
 
 - 3 teams;
 - 15 players;
@@ -223,59 +155,64 @@ The current console menu mainly displays the win-rate leaderboard, but the servi
 - 20 equipment items;
 - 10 match records.
 
-The data is currently hard-coded so that the program can run immediately without external files.
+Each team has 5 players. Each player owns at least 3 heroes. Each hero has at least 2 compatible equipment items.
 
 ### InputHelper
 
-`InputHelper` wraps `Scanner` and provides safer console input methods, including basic integer parsing with a default value.
+`InputHelper` wraps `Scanner` and provides safer console input methods, including integer parsing with default values.
 
-## 8. Object Relationships
+## 8. Access Control
 
-```text
-Admin extends Person
-Player extends Person
+The application uses role-based access control:
 
-Team contains many Player objects
-Player owns many Hero objects
-Hero has many compatible Equipment objects
-MatchRecord links Team, Player, and Hero objects
-```
-
-These relationships demonstrate inheritance, association, aggregation, and collections.
-
-## 9. Access Control Design
-
-The system uses role-based access control:
-
-- Admin users can access the admin data-management menu.
+- Admin users can access data-management functions.
 - Player users can view public information and edit limited personal information.
-- If a non-admin user tries to use admin-only features, the system displays a permission message.
+- Non-admin users are blocked from admin-only menu actions.
 
-Default accounts are created in `DataInitializer`:
+Default accounts are initialized in `DataInitializer`:
 
 ```text
-Admin:  A001 / admin123
-Player: P001 / p001
+Admin: A001 / admin123
+Player example: P001 / p001
 ```
 
-## 10. Current Limitations
+## 9. Core Functional Coverage
 
-This is a draft-level design document, so it records both completed design and known gaps.
+This design covers the required core functions:
 
-- Admin management currently supports basic deletion, but full add and edit operations still need to be completed.
-- File I/O currently saves a summary file, but full save/load persistence is not complete yet.
-- The console leaderboard currently focuses on win rate, although the service class supports other ranking methods.
-- A visual UML image has not been created yet; this document currently provides a text-based UML description.
-- Manual test documentation still needs to be completed in `docs/test-cases.md`.
+- player lookup;
+- team overview;
+- hero details;
+- equipment statistics;
+- match history;
+- leaderboard;
+- admin/player authentication;
+- role-based data management;
+- player self-service information editing;
+- file output.
 
-## 11. Future Improvements
+## 10. Documentation and Evidence
 
-The next design improvements should be:
+The final core submission will include:
 
-- expand admin data management to include add, edit, and delete for all major data types;
-- add full structured file persistence;
-- expose more leaderboard options in the console menu;
-- add hero pick rate display in match history;
-- create a visual UML diagram;
-- write at least 10 manual test cases;
-- complete AI evidence files and final reflection.
+- complete Java source code;
+- `docs/plan.md`;
+- `docs/design.md`;
+- `docs/test-cases.md`;
+- root `UML.md`;
+- `ai/prompts.md`;
+- `ai/agent-log.md`;
+- `ai/reflection.md`;
+- `README.md`;
+- `git-history.txt`.
+
+## 11. Design Compliance Summary
+
+- The required seven domain classes are included.
+- Inheritance is shown through `Person`, `Player`, and `Admin`.
+- Interface usage is shown through `Reportable`.
+- Collections are used for players, heroes, equipment, teams, users, and match records.
+- Enums are used for roles, hero types, equipment types, and match results.
+- File I/O is represented by `FileStorageService`.
+- Exception handling is used for validation, invalid input, duplicate IDs, and file output errors.
+- The design keeps business logic outside one large `Main` class.
