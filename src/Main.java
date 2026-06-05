@@ -6,6 +6,7 @@ import model.Player;
 import model.Role;
 import model.Team;
 import service.AdminManagementService;
+import service.AdminMenuService;
 import service.AuthenticationService;
 import service.DataPersistenceService;
 import service.DataValidationService;
@@ -15,6 +16,7 @@ import service.MatchHistoryService;
 import service.PermissionService;
 import service.RankingService;
 import service.SearchService;
+import util.AdminMenuPrinter;
 import util.DataInitializer;
 import util.InputHelper;
 
@@ -33,6 +35,8 @@ public class Main {
     private final DataValidationService validation = new DataValidationService();
     private final AdminManagementService adminManagement =
             new AdminManagementService(dataManager, permission, validation);
+    private final AdminMenuService adminMenu = new AdminMenuService(adminManagement);
+    private final AdminMenuPrinter adminMenuPrinter = new AdminMenuPrinter();
     private final MatchHistoryService matchHistory = new MatchHistoryService(dataManager);
     private final DataPersistenceService persistence = new DataPersistenceService(dataManager);
     private final InputHelper input = new InputHelper(new Scanner(System.in));
@@ -228,26 +232,10 @@ public class Main {
             System.out.println("Only admins can manage data.");
             return;
         }
-        System.out.println("Admin management delete menu:");
-        System.out.println("1. Delete player");
-        System.out.println("2. Delete hero");
-        System.out.println("3. Delete equipment");
-        System.out.println("4. Delete team");
-        System.out.println("5. Delete match record");
-        String choice = input.readLine("Choose: ");
-        String id = input.readLine("ID to delete: ");
-        try {
-            boolean deleted = switch (choice) {
-                case "1" -> adminManagement.deletePlayer(user, id);
-                case "2" -> adminManagement.deleteHero(user, id);
-                case "3" -> adminManagement.deleteEquipment(user, id);
-                case "4" -> adminManagement.deleteTeam(user, id);
-                case "5" -> adminManagement.deleteMatchRecord(user, id);
-                default -> false;
-            };
-            System.out.println(deleted ? "Deleted." : "No matching record found.");
-        } catch (SecurityException | IllegalArgumentException ex) {
-            System.out.println(ex.getMessage());
+        boolean stayInAdminMenu = true;
+        while (stayInAdminMenu) {
+            adminMenuPrinter.printMenu();
+            stayInAdminMenu = adminMenu.handleOption(user, input.readLine("Choose: "), input);
         }
     }
 

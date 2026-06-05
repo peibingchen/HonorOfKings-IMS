@@ -33,4 +33,13 @@ public enum AdminMenuOption {
     public String getLabel() {
         return label;
     }
+
+    public static AdminMenuOption fromCode(String code) {
+        for (AdminMenuOption option : values()) {
+            if (option.code.equals(code)) {
+                return option;
+            }
+        }
+        return null;
+    }
 }

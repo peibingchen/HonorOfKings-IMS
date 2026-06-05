@@ -125,6 +125,20 @@ public class AdminManagementService {
         dataManager.addMatchRecord(new MatchRecord(id, team, opponent, date, result));
     }
 
+    public boolean editMatchRecord(Person user, String matchId, String teamId, String opponent,
+                                   LocalDate date, MatchResult result) {
+        permissionService.requireAdmin(user);
+        MatchRecord record = dataManager.getMatchRecord(matchId);
+        validationService.requireFound(record, "Match record", matchId);
+        Team team = dataManager.getTeam(teamId);
+        validationService.requireFound(team, "Team", teamId);
+        record.setTeam(team);
+        record.setOpponent(opponent);
+        record.setDate(date);
+        record.setResult(result);
+        return true;
+    }
+
     public boolean deleteMatchRecord(Person user, String matchId) {
         permissionService.requireAdmin(user);
         return dataManager.deleteMatchRecord(matchId);
