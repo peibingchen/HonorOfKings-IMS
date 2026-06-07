@@ -631,11 +631,73 @@ Bug found:
 
 Admin match record management can add, edit, and delete match records, but it cannot manage `heroPicks`. This does not fully satisfy the match record requirement because match records should include participants and hero picks.
 
+## Test 20: Admin Adds Match Record With Hero Picks After Fix
+
+Function tested: Admin match record hero pick management
+
+Input:
+
+```text
+1
+A001
+admin123
+8
+13
+M900
+T001
+Pick Fixed Test
+2026-06-07
+WIN
+16
+M900
+P001
+H001
+16
+M900
+P002
+H002
+0
+5
+T
+10
+T001
+0
+```
+
+Expected output:
+
+After an admin adds a match record, the admin can add hero picks for players in that match. Team match history should display the new match and the selected heroes.
+
+Actual output:
+
+The admin menu displayed new options:
+
+```text
+16. Add or update match hero pick
+17. Clear match hero picks
+```
+
+After adding hero picks for `P001` and `P002`, team match history displayed:
+
+```text
+M900 | Red Phoenix vs Pick Fixed Test | 2026-06-07 | WIN
+  Chen Wei picked Li Bai
+  Lin Hao picked Diao Chan
+```
+
+Result:
+
+Pass
+
+Bug found:
+
+None. This test confirms that the bug recorded in Test 19 was fixed.
+
 ## Test Summary
 
-Total test cases: 19
+Total test cases: 20
 
-- Pass: 18
+- Pass: 19
 - Partial Pass: 0
 - Fail: 1
 
@@ -644,3 +706,4 @@ Main notes:
 - The previous match history issue has been fixed. The current output includes win/loss summary and hero pick rate for player match history.
 - The persistence feature now saves both a readable summary and structured CSV files.
 - New bug found: admin match record management does not yet support adding or updating hero picks for newly created match records.
+- Fix verified: admin match record management now supports adding or updating hero picks, and match history displays the selected heroes.
