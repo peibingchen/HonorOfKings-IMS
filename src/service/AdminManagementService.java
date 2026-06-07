@@ -143,4 +143,37 @@ public class AdminManagementService {
         permissionService.requireAdmin(user);
         return dataManager.deleteMatchRecord(matchId);
     }
+
+    public boolean addOrUpdateMatchHeroPick(Person user, String matchId, String playerId, String heroId) {
+        permissionService.requireAdmin(user);
+        MatchRecord record = dataManager.getMatchRecord(matchId);
+        validationService.requireFound(record, "Match record", matchId);
+        Player player = dataManager.getPlayer(playerId);
+        validationService.requireFound(player, "Player", playerId);
+        Hero hero = dataManager.getHero(heroId);
+        validationService.requireFound(hero, "Hero", heroId);
+        if (!record.getTeam().getMembers().contains(player)) {
+            throw new IllegalArgumentException("Player " + playerId + " is not a member of team "
+                    + record.getTeam().getId() + ".");
+        }
+        record.addHeroPick(player, hero);
+        return true;
+    }
+
+    public boolean removeMatchHeroPick(Person user, String matchId, String playerId) {
+        permissionService.requireAdmin(user);
+        MatchRecord record = dataManager.getMatchRecord(matchId);
+        validationService.requireFound(record, "Match record", matchId);
+        Player player = dataManager.getPlayer(playerId);
+        validationService.requireFound(player, "Player", playerId);
+        return record.removeHeroPick(player);
+    }
+
+    public boolean clearMatchHeroPicks(Person user, String matchId) {
+        permissionService.requireAdmin(user);
+        MatchRecord record = dataManager.getMatchRecord(matchId);
+        validationService.requireFound(record, "Match record", matchId);
+        record.clearHeroPicks();
+        return true;
+    }
 }

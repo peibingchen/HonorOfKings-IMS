@@ -74,6 +74,14 @@ public class MatchRecord implements Reportable {
         }
     }
 
+    public boolean removeHeroPick(Player player) {
+        return heroPicks.remove(player) != null;
+    }
+
+    public void clearHeroPicks() {
+        heroPicks.clear();
+    }
+
     public Map<Player, Hero> getHeroPicks() {
         return heroPicks;
     }

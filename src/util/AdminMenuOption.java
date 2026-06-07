@@ -16,6 +16,8 @@ public enum AdminMenuOption {
     ADD_MATCH_RECORD("13", "Add match record"),
     EDIT_MATCH_RECORD("14", "Edit match record"),
     DELETE_MATCH_RECORD("15", "Delete match record"),
+    ADD_OR_UPDATE_MATCH_PICK("16", "Add or update match hero pick"),
+    CLEAR_MATCH_PICKS("17", "Clear match hero picks"),
     BACK("0", "Back");
 
     private final String code;

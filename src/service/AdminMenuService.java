@@ -47,6 +47,8 @@ public class AdminMenuService {
                 case ADD_MATCH_RECORD -> addMatchRecord(user, input);
                 case EDIT_MATCH_RECORD -> editMatchRecord(user, input);
                 case DELETE_MATCH_RECORD -> deleteMatchRecord(user, input);
+                case ADD_OR_UPDATE_MATCH_PICK -> addOrUpdateMatchPick(user, input);
+                case CLEAR_MATCH_PICKS -> clearMatchPicks(user, input);
                 case BACK -> {
                     return false;
                 }
@@ -174,6 +176,19 @@ public class AdminMenuService {
     private void deleteMatchRecord(Person user, InputHelper input) {
         String id = input.readLine("Match ID: ");
         printResult(adminManagementService.deleteMatchRecord(user, id), "Match record deleted.");
+    }
+
+    private void addOrUpdateMatchPick(Person user, InputHelper input) {
+        String matchId = input.readLine("Match ID: ");
+        String playerId = input.readLine("Player ID: ");
+        String heroId = input.readLine("Hero ID: ");
+        printResult(adminManagementService.addOrUpdateMatchHeroPick(user, matchId, playerId, heroId),
+                "Match hero pick saved.");
+    }
+
+    private void clearMatchPicks(Person user, InputHelper input) {
+        String matchId = input.readLine("Match ID: ");
+        printResult(adminManagementService.clearMatchHeroPicks(user, matchId), "Match hero picks cleared.");
     }
 
     private HeroType readHeroType(InputHelper input) {
