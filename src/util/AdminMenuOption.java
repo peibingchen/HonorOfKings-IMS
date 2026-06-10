@@ -18,6 +18,10 @@ public enum AdminMenuOption {
     DELETE_MATCH_RECORD("15", "Delete match record"),
     ADD_OR_UPDATE_MATCH_PICK("16", "Add or update match hero pick"),
     CLEAR_MATCH_PICKS("17", "Clear match hero picks"),
+    ASSIGN_HERO_TO_PLAYER("18", "Assign hero to player"),
+    REMOVE_HERO_FROM_PLAYER("19", "Remove hero from player"),
+    ASSIGN_EQUIPMENT_TO_HERO("20", "Assign equipment to hero"),
+    REMOVE_EQUIPMENT_FROM_HERO("21", "Remove equipment from hero"),
     BACK("0", "Back");
 
     private final String code;

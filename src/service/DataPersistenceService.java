@@ -43,6 +43,10 @@ public class DataPersistenceService {
                 && Files.exists(directory.resolve("match-records.csv"));
     }
 
+    public GameDataManager loadAll(Path directory) throws IOException {
+        return new DataLoadService().loadAll(directory);
+    }
+
     private void saveUsers(Path path) throws IOException {
         List<String> lines = new ArrayList<>();
         lines.add("id,name,role");

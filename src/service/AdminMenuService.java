@@ -49,6 +49,8 @@ public class AdminMenuService {
                 case DELETE_MATCH_RECORD -> deleteMatchRecord(user, input);
                 case ADD_OR_UPDATE_MATCH_PICK -> addOrUpdateMatchPick(user, input);
                 case CLEAR_MATCH_PICKS -> clearMatchPicks(user, input);
+                case ASSIGN_HERO_TO_PLAYER, REMOVE_HERO_FROM_PLAYER,
+                     ASSIGN_EQUIPMENT_TO_HERO, REMOVE_EQUIPMENT_FROM_HERO -> relationshipPlaceholder();
                 case BACK -> {
                     return false;
                 }
@@ -189,6 +191,10 @@ public class AdminMenuService {
     private void clearMatchPicks(Person user, InputHelper input) {
         String matchId = input.readLine("Match ID: ");
         printResult(adminManagementService.clearMatchHeroPicks(user, matchId), "Match hero picks cleared.");
+    }
+
+    private void relationshipPlaceholder() {
+        System.out.println("Relationship management framework is ready, but this action is not implemented yet.");
     }
 
     private HeroType readHeroType(InputHelper input) {
