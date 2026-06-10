@@ -54,6 +54,16 @@ public class GameDataManager {
         matchRecords.add(record);
     }
 
+    public void clearAll() {
+        users.clear();
+        players.clear();
+        admins.clear();
+        heroes.clear();
+        equipment.clear();
+        teams.clear();
+        matchRecords.clear();
+    }
+
     public boolean deletePlayer(String id) {
         Person person = users.get(id);
         if (!(person instanceof Player)) {

@@ -88,6 +88,10 @@ public class Hero implements Reportable {
         }
     }
 
+    public boolean removeCompatibleEquipment(Equipment equipment) {
+        return compatibleEquipment.remove(equipment);
+    }
+
     public List<Equipment> getCompatibleEquipment() {
         return Collections.unmodifiableList(compatibleEquipment);
     }

@@ -16,9 +16,12 @@ import java.time.format.DateTimeParseException;
 
 public class AdminMenuService {
     private final AdminManagementService adminManagementService;
+    private final RelationshipManagementService relationshipManagementService;
 
-    public AdminMenuService(AdminManagementService adminManagementService) {
+    public AdminMenuService(AdminManagementService adminManagementService,
+                            RelationshipManagementService relationshipManagementService) {
         this.adminManagementService = adminManagementService;
+        this.relationshipManagementService = relationshipManagementService;
     }
 
     public boolean handleOption(Person user, String choice, InputHelper input) {
@@ -49,8 +52,10 @@ public class AdminMenuService {
                 case DELETE_MATCH_RECORD -> deleteMatchRecord(user, input);
                 case ADD_OR_UPDATE_MATCH_PICK -> addOrUpdateMatchPick(user, input);
                 case CLEAR_MATCH_PICKS -> clearMatchPicks(user, input);
-                case ASSIGN_HERO_TO_PLAYER, REMOVE_HERO_FROM_PLAYER,
-                     ASSIGN_EQUIPMENT_TO_HERO, REMOVE_EQUIPMENT_FROM_HERO -> relationshipPlaceholder();
+                case ASSIGN_HERO_TO_PLAYER -> assignHeroToPlayer(user, input);
+                case REMOVE_HERO_FROM_PLAYER -> removeHeroFromPlayer(user, input);
+                case ASSIGN_EQUIPMENT_TO_HERO -> assignEquipmentToHero(user, input);
+                case REMOVE_EQUIPMENT_FROM_HERO -> removeEquipmentFromHero(user, input);
                 case BACK -> {
                     return false;
                 }
@@ -193,8 +198,32 @@ public class AdminMenuService {
         printResult(adminManagementService.clearMatchHeroPicks(user, matchId), "Match hero picks cleared.");
     }
 
-    private void relationshipPlaceholder() {
-        System.out.println("Relationship management framework is ready, but this action is not implemented yet.");
+    private void assignHeroToPlayer(Person user, InputHelper input) {
+        String playerId = input.readLine("Player ID: ");
+        String heroId = input.readLine("Hero ID: ");
+        printResult(relationshipManagementService.assignHeroToPlayer(user, playerId, heroId),
+                "Hero assigned to player.");
+    }
+
+    private void removeHeroFromPlayer(Person user, InputHelper input) {
+        String playerId = input.readLine("Player ID: ");
+        String heroId = input.readLine("Hero ID: ");
+        printResult(relationshipManagementService.removeHeroFromPlayer(user, playerId, heroId),
+                "Hero removed from player.");
+    }
+
+    private void assignEquipmentToHero(Person user, InputHelper input) {
+        String heroId = input.readLine("Hero ID: ");
+        String equipmentId = input.readLine("Equipment ID: ");
+        printResult(relationshipManagementService.assignEquipmentToHero(user, heroId, equipmentId),
+                "Equipment assigned to hero.");
+    }
+
+    private void removeEquipmentFromHero(Person user, InputHelper input) {
+        String heroId = input.readLine("Hero ID: ");
+        String equipmentId = input.readLine("Equipment ID: ");
+        printResult(relationshipManagementService.removeEquipmentFromHero(user, heroId, equipmentId),
+                "Equipment removed from hero.");
     }
 
     private HeroType readHeroType(InputHelper input) {

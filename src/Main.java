@@ -15,6 +15,7 @@ import service.GameDataManager;
 import service.MatchHistoryService;
 import service.PermissionService;
 import service.RankingService;
+import service.RelationshipManagementService;
 import service.SearchService;
 import util.AdminMenuPrinter;
 import util.DataInitializer;
@@ -35,7 +36,9 @@ public class Main {
     private final DataValidationService validation = new DataValidationService();
     private final AdminManagementService adminManagement =
             new AdminManagementService(dataManager, permission, validation);
-    private final AdminMenuService adminMenu = new AdminMenuService(adminManagement);
+    private final RelationshipManagementService relationshipManagement =
+            new RelationshipManagementService(dataManager, permission, validation);
+    private final AdminMenuService adminMenu = new AdminMenuService(adminManagement, relationshipManagement);
     private final AdminMenuPrinter adminMenuPrinter = new AdminMenuPrinter();
     private final MatchHistoryService matchHistory = new MatchHistoryService(dataManager);
     private final DataPersistenceService persistence = new DataPersistenceService(dataManager);
@@ -90,6 +93,7 @@ public class Main {
         if (user.getRole() == Role.ADMIN) {
             System.out.println("8. Admin data management");
             System.out.println("9. Save data");
+            System.out.println("10. Load data");
         }
         System.out.println("L. Logout");
         System.out.println("0. Exit");
@@ -104,6 +108,7 @@ public class Main {
             case "7" -> showMyInformation();
             case "8" -> runAdminManagement(user);
             case "9" -> saveDataSummary(user);
+            case "10" -> loadData(user);
             case "L" -> auth.logout();
             case "0" -> System.exit(0);
             default -> System.out.println("Unknown option.");
@@ -250,6 +255,19 @@ public class Main {
             System.out.println("Saved to docs/data-summary.txt and data/*.csv");
         } catch (IOException ex) {
             System.out.println("Could not save data: " + ex.getMessage());
+        }
+    }
+
+    private void loadData(Person user) {
+        if (!permission.isAdmin(user)) {
+            System.out.println("Only admins can load data.");
+            return;
+        }
+        try {
+            persistence.loadInto(Path.of("data"));
+            System.out.println("Loaded data from data/*.csv");
+        } catch (IOException | IllegalArgumentException ex) {
+            System.out.println("Could not load data: " + ex.getMessage());
         }
     }
 }

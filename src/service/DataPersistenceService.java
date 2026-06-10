@@ -47,6 +47,10 @@ public class DataPersistenceService {
         return new DataLoadService().loadAll(directory);
     }
 
+    public void loadInto(Path directory) throws IOException {
+        new DataLoadService().loadInto(directory, dataManager);
+    }
+
     private void saveUsers(Path path) throws IOException {
         List<String> lines = new ArrayList<>();
         lines.add("id,name,role");

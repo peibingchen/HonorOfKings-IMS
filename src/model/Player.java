@@ -60,6 +60,10 @@ public class Player extends Person implements Reportable {
         }
     }
 
+    public boolean removeHero(Hero hero) {
+        return ownedHeroes.remove(hero);
+    }
+
     public List<Hero> getOwnedHeroes() {
         return Collections.unmodifiableList(ownedHeroes);
     }
