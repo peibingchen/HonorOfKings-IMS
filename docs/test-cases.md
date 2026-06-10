@@ -693,11 +693,180 @@ Bug found:
 
 None. This test confirms that the bug recorded in Test 19 was fixed.
 
+## Test 21: Load Data Restores Deleted Player
+
+Function tested: CSV data loading
+
+Input:
+
+```text
+1
+A001
+admin123
+9
+8
+3
+P015
+0
+1
+P015
+10
+1
+P015
+0
+```
+
+Expected output:
+
+After saving data, deleting player `P015`, and loading data from CSV files, player `P015` should be restored.
+
+Actual output:
+
+The system first saved data to `docs/data-summary.txt` and `data/*.csv`. After deleting `P015`, searching for `P015` displayed:
+
+```text
+Player not found.
+```
+
+After selecting `10. Load data`, the system displayed:
+
+```text
+Loaded data from data/*.csv
+```
+
+Searching for `P015` again displayed:
+
+```text
+P015 | Ye Xuan | team=Silver Moon | level=27 | winRate=50.0%
+```
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
+## Test 22: Admin Assigns and Removes Hero for Player
+
+Function tested: Player-owned hero relationship management
+
+Input:
+
+```text
+1
+A001
+admin123
+8
+18
+P001
+H002
+0
+1
+P001
+8
+19
+P001
+H002
+0
+0
+```
+
+Expected output:
+
+The admin can assign an existing hero to an existing player and remove that hero later.
+
+Actual output:
+
+After choosing `18. Assign hero to player`, the system displayed:
+
+```text
+Hero assigned to player.
+```
+
+Player lookup for `P001` showed the newly assigned hero:
+
+```text
+H002 | Diao Chan | MAGE
+```
+
+After choosing `19. Remove hero from player`, the system displayed:
+
+```text
+Hero removed from player.
+```
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
+## Test 23: Admin Assigns and Removes Equipment for Hero
+
+Function tested: Hero-compatible equipment relationship management
+
+Input:
+
+```text
+1
+A001
+admin123
+8
+20
+H001
+E002
+0
+3
+H001
+8
+21
+H001
+E002
+0
+0
+```
+
+Expected output:
+
+The admin can assign existing equipment to an existing hero and remove that equipment later.
+
+Actual output:
+
+After choosing `20. Assign equipment to hero`, the system displayed:
+
+```text
+Equipment assigned to hero.
+```
+
+Hero lookup for `H001` showed the newly assigned equipment:
+
+```text
+E002 | Storm Sword
+```
+
+After choosing `21. Remove equipment from hero`, the system displayed:
+
+```text
+Equipment removed from hero.
+```
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
 ## Test Summary
 
-Total test cases: 20
+Total test cases: 23
 
-- Pass: 19
+- Pass: 22
 - Partial Pass: 0
 - Fail: 1
 
@@ -707,3 +876,5 @@ Main notes:
 - The persistence feature now saves both a readable summary and structured CSV files.
 - New bug found: admin match record management does not yet support adding or updating hero picks for newly created match records.
 - Fix verified: admin match record management now supports adding or updating hero picks, and match history displays the selected heroes.
+- Data loading verified: deleted player data can be restored from CSV files.
+- Relationship management verified: admins can assign/remove heroes for players and assign/remove equipment for heroes.
