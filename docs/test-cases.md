@@ -1,6 +1,6 @@
 # Honor of Kings IMS - Manual Test Cases
 
-Test date: 2026-06-04  
+Test date: 2026-06-10  
 Test environment: Windows PowerShell, JDK 21.0.10
 
 ## Test 01: Compile Project
@@ -862,11 +862,78 @@ Bug found:
 
 None
 
+## Test 24: Full Core Feature Regression Test
+
+Function tested: Complete basic coursework feature set
+
+Input:
+
+Multiple scripted console runs were executed to cover login, lookup, reports, ranking, match history, admin data management, relationship management, save, and load.
+
+Expected output:
+
+All basic coursework functions should run without crashing, and each feature should produce the expected result.
+
+Actual output:
+
+The following features were tested successfully:
+
+- Java compilation.
+- Invalid login rejection.
+- Admin login.
+- Player login.
+- Player blocked from admin data management.
+- Player self-edit name.
+- Player lookup.
+- Team overview.
+- Hero details.
+- Equipment statistics.
+- Leaderboard.
+- Player match history.
+- Admin add, edit, and delete player.
+- Admin add, edit, and delete hero.
+- Admin add, edit, and delete equipment.
+- Admin add, edit, and delete team.
+- Admin add, edit, and delete match record.
+- Admin add or update match hero picks.
+- Assign and remove hero for player.
+- Assign and remove equipment for hero.
+- Save data to `docs/data-summary.txt` and `data/*.csv`.
+- Load data from `data/*.csv`.
+
+Important observed outputs:
+
+```text
+Login failed. Check ID and password.
+Login successful. Welcome, Admin.
+Only admins can manage data.
+P001 | Chen Wei | team=Red Phoenix | level=38 | winRate=70.0%
+T001 | Red Phoenix | members=5 | avgLevel=35.4
+H001 | Li Bai | ASSASSIN
+Equipment ranking formula: usageCount * 2 + rating + power / 100.
+Hero assigned to player.
+Hero removed from player.
+Equipment assigned to hero.
+Equipment removed from hero.
+Saved to docs/data-summary.txt and data/*.csv
+Loaded data from data/*.csv
+```
+
+The save/load regression was verified by deleting `P015`, confirming `Player not found`, loading data, and then confirming that `P015 | Ye Xuan | team=Silver Moon` was restored.
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
 ## Test Summary
 
-Total test cases: 23
+Total test cases: 24
 
-- Pass: 22
+- Pass: 23
 - Partial Pass: 0
 - Fail: 1
 
@@ -878,3 +945,4 @@ Main notes:
 - Fix verified: admin match record management now supports adding or updating hero picks, and match history displays the selected heroes.
 - Data loading verified: deleted player data can be restored from CSV files.
 - Relationship management verified: admins can assign/remove heroes for players and assign/remove equipment for heroes.
+- Full core regression verified: all basic coursework features were tested together and passed.
