@@ -1,3 +1,4 @@
+import gui.MainFrame;
 import model.Equipment;
 import model.Hero;
 import model.MatchRecord;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.SwingUtilities;
 
 public class Main {
     private final GameDataManager dataManager = DataInitializer.createSampleData();
@@ -106,7 +108,7 @@ public class Main {
         }
         System.out.println("11. Combat simulation");
         System.out.println("12. Recommendation engine");
-        System.out.println("13. Swing GUI (extra feature framework)");
+        System.out.println("13. Swing GUI");
         System.out.println("L. Logout");
         System.out.println("0. Exit");
         String choice = input.readLine("Choose: ").toUpperCase();
@@ -345,7 +347,8 @@ public class Main {
     }
 
     private void showGuiFramework() {
-        System.out.println("Swing GUI framework classes are ready. GUI launch will be connected in a later stage.");
+        SwingUtilities.invokeLater(() -> new MainFrame(auth, search, ranking).setVisible(true));
+        System.out.println("Swing GUI opened. Close the GUI window to return to console-only use.");
     }
 
     private void printRecommendations(List<Recommendation> recommendations) {

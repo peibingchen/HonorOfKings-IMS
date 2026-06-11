@@ -1,15 +1,38 @@
 package gui;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import service.AuthenticationService;
 
 public class LoginPanel extends JPanel {
     private final AuthenticationService authenticationService;
+    private final JTextField userIdField = new JTextField(12);
+    private final JPasswordField passwordField = new JPasswordField(12);
+    private final JTextArea outputArea = PanelFactory.createOutputArea(
+            "Login controls are ready. Authentication actions will be connected in the next GUI stage.");
 
     public LoginPanel(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
-        add(new JLabel("Login GUI framework placeholder"));
+        setLayout(new BorderLayout(8, 8));
+        setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+
+        JPanel controls = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        controls.add(new JLabel("User ID:"));
+        controls.add(userIdField);
+        controls.add(new JLabel("Password:"));
+        controls.add(passwordField);
+        controls.add(new JButton("Login"));
+        controls.add(new JButton("Logout"));
+
+        add(controls, BorderLayout.NORTH);
+        add(outputArea, BorderLayout.CENTER);
     }
 
     public AuthenticationService getAuthenticationService() {
