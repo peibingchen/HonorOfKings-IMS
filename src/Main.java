@@ -8,6 +8,7 @@ import model.Team;
 import service.AdminManagementService;
 import service.AdminMenuService;
 import service.AuthenticationService;
+import service.CombatSimulator;
 import service.DataPersistenceService;
 import service.DataValidationService;
 import service.FileStorageService;
@@ -42,6 +43,7 @@ public class Main {
     private final AdminMenuPrinter adminMenuPrinter = new AdminMenuPrinter();
     private final MatchHistoryService matchHistory = new MatchHistoryService(dataManager);
     private final DataPersistenceService persistence = new DataPersistenceService(dataManager);
+    private final CombatSimulator combatSimulator = new CombatSimulator();
     private final InputHelper input = new InputHelper(new Scanner(System.in));
 
     public static void main(String[] args) {
@@ -95,7 +97,7 @@ public class Main {
             System.out.println("9. Save data");
             System.out.println("10. Load data");
         }
-        System.out.println("11. Combat simulation (extra feature framework)");
+        System.out.println("11. Combat simulation");
         System.out.println("12. Recommendation engine (extra feature framework)");
         System.out.println("13. Swing GUI (extra feature framework)");
         System.out.println("L. Logout");
@@ -278,7 +280,21 @@ public class Main {
     }
 
     private void showCombatSimulationFramework() {
-        System.out.println("Combat simulation framework is ready. Full implementation will be added in a later stage.");
+        Hero first = search.findHero(input.readLine("First hero ID or name: "));
+        if (first == null) {
+            System.out.println("First hero not found.");
+            return;
+        }
+        Hero second = search.findHero(input.readLine("Second hero ID or name: "));
+        if (second == null) {
+            System.out.println("Second hero not found.");
+            return;
+        }
+        var result = combatSimulator.simulate(first, second);
+        System.out.println(result.getReport());
+        for (String entry : result.getCombatLog()) {
+            System.out.println("  " + entry);
+        }
     }
 
     private void showRecommendationFramework() {

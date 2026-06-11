@@ -8,6 +8,8 @@ public class BattleResult implements Reportable {
     private Hero winner;
     private Hero loser;
     private int rounds;
+    private int winnerRemainingHealth;
+    private int loserRemainingHealth;
     private final List<String> combatLog = new ArrayList<>();
 
     public BattleResult() {
@@ -37,6 +39,22 @@ public class BattleResult implements Reportable {
         this.rounds = rounds;
     }
 
+    public int getWinnerRemainingHealth() {
+        return winnerRemainingHealth;
+    }
+
+    public void setWinnerRemainingHealth(int winnerRemainingHealth) {
+        this.winnerRemainingHealth = winnerRemainingHealth;
+    }
+
+    public int getLoserRemainingHealth() {
+        return loserRemainingHealth;
+    }
+
+    public void setLoserRemainingHealth(int loserRemainingHealth) {
+        this.loserRemainingHealth = loserRemainingHealth;
+    }
+
     public void addLogEntry(String entry) {
         if (entry != null && !entry.trim().isEmpty()) {
             combatLog.add(entry.trim());
@@ -51,6 +69,10 @@ public class BattleResult implements Reportable {
     public String getReport() {
         String winnerName = winner == null ? "TBD" : winner.getName();
         String loserName = loser == null ? "TBD" : loser.getName();
-        return "BattleResult | winner=" + winnerName + " | loser=" + loserName + " | rounds=" + rounds;
+        return "BattleResult | winner=" + winnerName
+                + " | loser=" + loserName
+                + " | rounds=" + rounds
+                + " | winnerHp=" + winnerRemainingHealth
+                + " | loserHp=" + loserRemainingHealth;
     }
 }
