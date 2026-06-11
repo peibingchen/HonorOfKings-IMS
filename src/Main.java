@@ -3,6 +3,7 @@ import model.Hero;
 import model.MatchRecord;
 import model.Person;
 import model.Player;
+import model.Recommendation;
 import model.Role;
 import model.Team;
 import service.AdminManagementService;
@@ -16,6 +17,7 @@ import service.GameDataManager;
 import service.MatchHistoryService;
 import service.PermissionService;
 import service.RankingService;
+import service.RecommendationEngine;
 import service.RelationshipManagementService;
 import service.SearchService;
 import util.AdminMenuPrinter;
@@ -44,6 +46,7 @@ public class Main {
     private final MatchHistoryService matchHistory = new MatchHistoryService(dataManager);
     private final DataPersistenceService persistence = new DataPersistenceService(dataManager);
     private final CombatSimulator combatSimulator = new CombatSimulator();
+    private final RecommendationEngine recommendationEngine = new RecommendationEngine(dataManager);
     private final InputHelper input = new InputHelper(new Scanner(System.in));
 
     public static void main(String[] args) {
@@ -98,7 +101,7 @@ public class Main {
             System.out.println("10. Load data");
         }
         System.out.println("11. Combat simulation");
-        System.out.println("12. Recommendation engine (extra feature framework)");
+        System.out.println("12. Recommendation engine");
         System.out.println("13. Swing GUI (extra feature framework)");
         System.out.println("L. Logout");
         System.out.println("0. Exit");
@@ -167,6 +170,8 @@ public class Main {
         for (Player player : search.findPlayersOwningHero(hero)) {
             System.out.println("  " + player.getName());
         }
+        System.out.println("Recommended equipment:");
+        printRecommendations(recommendationEngine.recommendEquipment(hero, 3));
     }
 
     private void showEquipmentStatistics() {
@@ -298,10 +303,52 @@ public class Main {
     }
 
     private void showRecommendationFramework() {
-        System.out.println("Recommendation engine framework is ready. Full implementation will be added in a later stage.");
+        System.out.println("1. Recommend equipment for hero");
+        System.out.println("2. Recommend heroes for player");
+        System.out.println("3. Recommend team composition");
+        String choice = input.readLine("Choose: ");
+        switch (choice) {
+            case "1" -> {
+                Hero hero = search.findHero(input.readLine("Hero ID or name: "));
+                if (hero == null) {
+                    System.out.println("Hero not found.");
+                    return;
+                }
+                int limit = input.readInt("Top N recommendations (default 5): ", 5);
+                printRecommendations(recommendationEngine.recommendEquipment(hero, limit));
+            }
+            case "2" -> {
+                Player player = search.findPlayer(input.readLine("Player ID or name: "));
+                if (player == null) {
+                    System.out.println("Player not found.");
+                    return;
+                }
+                int limit = input.readInt("Top N recommendations (default 5): ", 5);
+                printRecommendations(recommendationEngine.recommendHeroes(player, limit));
+            }
+            case "3" -> {
+                Team team = search.findTeam(input.readLine("Team ID or name: "));
+                if (team == null) {
+                    System.out.println("Team not found.");
+                    return;
+                }
+                printRecommendations(recommendationEngine.recommendTeamComposition(team));
+            }
+            default -> System.out.println("Unknown recommendation option.");
+        }
     }
 
     private void showGuiFramework() {
         System.out.println("Swing GUI framework classes are ready. GUI launch will be connected in a later stage.");
+    }
+
+    private void printRecommendations(List<Recommendation> recommendations) {
+        if (recommendations.isEmpty()) {
+            System.out.println("No recommendations available.");
+            return;
+        }
+        for (Recommendation recommendation : recommendations) {
+            System.out.println("  " + recommendation.getReport());
+        }
     }
 }
