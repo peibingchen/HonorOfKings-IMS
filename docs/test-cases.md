@@ -1,6 +1,6 @@
 # Honor of Kings IMS - Manual Test Cases
 
-Test date: 2026-06-10  
+Test date: 2026-06-10 to 2026-06-11  
 Test environment: Windows PowerShell, JDK 21.0.10
 
 ## Test 01: Compile Project
@@ -929,11 +929,135 @@ Bug found:
 
 None
 
+## Test 25: Extra Feature Combat Simulation
+
+Function tested: Combat simulation extra-credit feature
+
+Input:
+
+```text
+1
+A001
+admin123
+11
+H001
+H002
+0
+```
+
+Expected output:
+
+The system should allow a logged-in user to select two heroes and run a turn-based battle simulation. The output should include winner, loser, round count, remaining health, and a round-by-round combat log with random critical hit or dodge events.
+
+Actual output:
+
+The system logged in as Admin, accepted `H001` and `H002`, and displayed a battle report similar to:
+
+```text
+BattleResult | winner=Li Bai | loser=Diao Chan | rounds=24 | winnerHp=365 | loserHp=0
+Battle started: Li Bai vs Diao Chan
+Round 1: Li Bai dealt 132 damage to Diao Chan (remaining HP: 2868).
+...
+Battle finished. Winner: Li Bai
+```
+
+The combat log included normal damage, critical hit, and dodge events.
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
+## Test 26: Extra Feature Recommendation Engine
+
+Function tested: Recommendation engine extra-credit feature
+
+Input:
+
+Equipment recommendation:
+
+```text
+1
+A001
+admin123
+12
+1
+H001
+3
+0
+```
+
+Hero recommendation:
+
+```text
+1
+A001
+admin123
+12
+2
+P001
+3
+0
+```
+
+Team composition recommendation:
+
+```text
+1
+A001
+admin123
+12
+3
+T001
+0
+```
+
+Expected output:
+
+The system should provide ranked recommendations for equipment, heroes, and team composition. Recommendation reasons should be visible and should be based on hero type, compatibility, equipment score, player-owned heroes, or team role coverage.
+
+Actual output:
+
+Equipment recommendation for `H001` displayed:
+
+```text
+Equipment | E011 | Blood Bow | score=31.25 | reason=compatible with Li Bai and suitable for ASSASSIN
+Equipment | E001 | Shadow Blade | score=29.40 | reason=compatible with Li Bai and suitable for ASSASSIN
+Equipment | E012 | Dragon Spear | score=21.95 | reason=ATTACK equipment supports ASSASSIN play style
+```
+
+Hero recommendation for `P001` displayed:
+
+```text
+Hero | H009 | Bai Qi | score=156.30 | reason=fills missing TANK role
+Hero | H005 | Zhang Fei | score=152.10 | reason=fills missing SUPPORT role
+Hero | H003 | Arthur | score=148.50 | reason=fills missing TANK role
+```
+
+Team composition recommendation for `T001` displayed:
+
+```text
+No recommendations available.
+```
+
+This is acceptable because the current sample team already has complete role coverage.
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
 ## Test Summary
 
-Total test cases: 24
+Total test cases: 26
 
-- Pass: 23
+- Pass: 25
 - Partial Pass: 0
 - Fail: 1
 
@@ -946,3 +1070,5 @@ Main notes:
 - Data loading verified: deleted player data can be restored from CSV files.
 - Relationship management verified: admins can assign/remove heroes for players and assign/remove equipment for heroes.
 - Full core regression verified: all basic coursework features were tested together and passed.
+- Extra-credit combat simulation verified: hero battle simulation outputs winner, health, rounds, and combat log.
+- Extra-credit recommendation engine verified: equipment, hero, and team composition recommendation paths run successfully.
