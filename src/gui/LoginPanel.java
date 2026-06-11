@@ -7,8 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import model.Person;
 import service.AuthenticationService;
 
 public class LoginPanel extends JPanel {
@@ -28,14 +30,36 @@ public class LoginPanel extends JPanel {
         controls.add(userIdField);
         controls.add(new JLabel("Password:"));
         controls.add(passwordField);
-        controls.add(new JButton("Login"));
-        controls.add(new JButton("Logout"));
+        JButton loginButton = new JButton("Login");
+        JButton logoutButton = new JButton("Logout");
+        controls.add(loginButton);
+        controls.add(logoutButton);
+
+        loginButton.addActionListener(event -> login());
+        logoutButton.addActionListener(event -> logout());
 
         add(controls, BorderLayout.NORTH);
-        add(outputArea, BorderLayout.CENTER);
+        add(new JScrollPane(outputArea), BorderLayout.CENTER);
     }
 
     public AuthenticationService getAuthenticationService() {
         return authenticationService;
+    }
+
+    private void login() {
+        String userId = userIdField.getText().trim();
+        String password = new String(passwordField.getPassword());
+        if (authenticationService.login(userId, password)) {
+            Person user = authenticationService.getCurrentUser();
+            outputArea.setText("Login successful.\n"
+                    + "Current user: " + user.getName() + " (" + user.getRole() + ")");
+        } else {
+            outputArea.setText("Login failed. Check ID and password.");
+        }
+    }
+
+    private void logout() {
+        authenticationService.logout();
+        outputArea.setText("Logged out.");
     }
 }

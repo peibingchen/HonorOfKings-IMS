@@ -4,6 +4,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import model.Player;
+import model.Team;
 import service.SearchService;
 
 public class TeamOverviewPanel extends JPanel {
@@ -15,6 +17,7 @@ public class TeamOverviewPanel extends JPanel {
     public TeamOverviewPanel(SearchService searchService) {
         this.searchService = searchService;
         JButton searchButton = new JButton("Search Team");
+        searchButton.addActionListener(event -> searchTeam());
         PanelFactory.applyStandardLayout(this,
                 PanelFactory.createSearchPanel("Team ID or name:", queryField, searchButton),
                 outputArea);
@@ -22,5 +25,21 @@ public class TeamOverviewPanel extends JPanel {
 
     public SearchService getSearchService() {
         return searchService;
+    }
+
+    private void searchTeam() {
+        Team team = searchService.findTeam(queryField.getText());
+        if (team == null) {
+            outputArea.setText("Team not found.");
+            return;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(team.getReport()).append('\n');
+        builder.append("Members:\n");
+        for (Player player : team.getMembers()) {
+            builder.append("- ").append(player.getReport()).append('\n');
+        }
+        outputArea.setText(builder.toString());
     }
 }
