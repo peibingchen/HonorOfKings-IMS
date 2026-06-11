@@ -10,11 +10,29 @@ import model.Team;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class DataPersistenceService {
+    private static final DateTimeFormatter BACKUP_TIME_FORMAT =
+            DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
+    private static final List<String> DATA_FILES = List.of(
+            "users.csv",
+            "players.csv",
+            "heroes.csv",
+            "equipment.csv",
+            "teams.csv",
+            "team-members.csv",
+            "player-heroes.csv",
+            "hero-equipment.csv",
+            "match-records.csv",
+            "match-picks.csv"
+    );
+
     private final GameDataManager dataManager;
 
     public DataPersistenceService(GameDataManager dataManager) {
@@ -35,6 +53,27 @@ public class DataPersistenceService {
         saveMatchPicks(directory.resolve("match-picks.csv"));
     }
 
+    public PersistenceReport saveAllWithBackup(Path directory) throws IOException {
+        PersistenceReport report = new PersistenceReport("Save data");
+        Path backupDirectory = createBackupIfDataExists(directory);
+        if (backupDirectory != null) {
+            report.setBackupDirectory(backupDirectory);
+            report.addMessage("Existing CSV files were copied before saving new data.");
+        } else {
+            report.addMessage("No existing CSV files required backup.");
+        }
+
+        saveAll(directory);
+        report.setSuccessful(true);
+        report.addMessage("Saved " + dataManager.getUsers().size() + " users.");
+        report.addMessage("Saved " + dataManager.getPlayers().size() + " players.");
+        report.addMessage("Saved " + dataManager.getHeroes().size() + " heroes.");
+        report.addMessage("Saved " + dataManager.getEquipment().size() + " equipment items.");
+        report.addMessage("Saved " + dataManager.getTeams().size() + " teams.");
+        report.addMessage("Saved " + dataManager.getMatchRecords().size() + " match records.");
+        return report;
+    }
+
     public boolean hasSavedData(Path directory) {
         return Files.exists(directory.resolve("players.csv"))
                 && Files.exists(directory.resolve("heroes.csv"))
@@ -49,6 +88,45 @@ public class DataPersistenceService {
 
     public void loadInto(Path directory) throws IOException {
         new DataLoadService().loadInto(directory, dataManager);
+    }
+
+    public PersistenceReport loadIntoWithReport(Path directory) throws IOException {
+        DataLoadService loader = new DataLoadService();
+        PersistenceReport report = loader.validateFiles(directory);
+        if (!report.getWarnings().isEmpty()) {
+            report.addMessage("Validation completed with warnings before loading.");
+        }
+        loader.loadInto(directory, dataManager);
+        report.setSuccessful(true);
+        report.addMessage("Loaded " + dataManager.getPlayers().size() + " players.");
+        report.addMessage("Loaded " + dataManager.getHeroes().size() + " heroes.");
+        report.addMessage("Loaded " + dataManager.getEquipment().size() + " equipment items.");
+        report.addMessage("Loaded " + dataManager.getTeams().size() + " teams.");
+        report.addMessage("Loaded " + dataManager.getMatchRecords().size() + " match records.");
+        return report;
+    }
+
+    private Path createBackupIfDataExists(Path directory) throws IOException {
+        if (!Files.exists(directory)) {
+            return null;
+        }
+        List<Path> existingFiles = new ArrayList<>();
+        for (String fileName : DATA_FILES) {
+            Path file = directory.resolve(fileName);
+            if (Files.exists(file)) {
+                existingFiles.add(file);
+            }
+        }
+        if (existingFiles.isEmpty()) {
+            return null;
+        }
+
+        Path backupDirectory = directory.resolve("backups").resolve(LocalDateTime.now().format(BACKUP_TIME_FORMAT));
+        Files.createDirectories(backupDirectory);
+        for (Path file : existingFiles) {
+            Files.copy(file, backupDirectory.resolve(file.getFileName()), StandardCopyOption.REPLACE_EXISTING);
+        }
+        return backupDirectory;
     }
 
     private void saveUsers(Path path) throws IOException {

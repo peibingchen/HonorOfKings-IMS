@@ -18,12 +18,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataLoadService {
+    private static final List<String> REQUIRED_FILES = List.of(
+            "players.csv",
+            "heroes.csv",
+            "equipment.csv",
+            "teams.csv",
+            "match-records.csv"
+    );
+
     public boolean canLoad(Path directory) {
-        return Files.exists(directory.resolve("players.csv"))
-                && Files.exists(directory.resolve("heroes.csv"))
-                && Files.exists(directory.resolve("equipment.csv"))
-                && Files.exists(directory.resolve("teams.csv"))
-                && Files.exists(directory.resolve("match-records.csv"));
+        for (String fileName : REQUIRED_FILES) {
+            if (!Files.exists(directory.resolve(fileName))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public PersistenceReport validateFiles(Path directory) throws IOException {
+        PersistenceReport report = new PersistenceReport("Load data");
+        for (String fileName : REQUIRED_FILES) {
+            Path file = directory.resolve(fileName);
+            if (!Files.exists(file)) {
+                report.addWarning("Missing required file: " + fileName);
+            }
+        }
+        validateMinimumColumns(report, directory.resolve("players.csv"), 5);
+        validateMinimumColumns(report, directory.resolve("heroes.csv"), 6);
+        validateMinimumColumns(report, directory.resolve("equipment.csv"), 5);
+        validateMinimumColumns(report, directory.resolve("teams.csv"), 2);
+        validateMinimumColumns(report, directory.resolve("match-records.csv"), 5);
+        validateMinimumColumns(report, directory.resolve("team-members.csv"), 2);
+        validateMinimumColumns(report, directory.resolve("player-heroes.csv"), 2);
+        validateMinimumColumns(report, directory.resolve("hero-equipment.csv"), 2);
+        validateMinimumColumns(report, directory.resolve("match-picks.csv"), 3);
+        return report;
     }
 
     public GameDataManager loadAll(Path directory) throws IOException {
@@ -193,5 +222,23 @@ public class DataLoadService {
 
     private int parseInt(String value) {
         return Integer.parseInt(value.trim());
+    }
+
+    private void validateMinimumColumns(PersistenceReport report, Path path, int minimumColumns) throws IOException {
+        if (!Files.exists(path)) {
+            return;
+        }
+        List<String> lines = Files.readAllLines(path);
+        for (int i = 1; i < lines.size(); i++) {
+            String line = lines.get(i);
+            if (line.isBlank()) {
+                continue;
+            }
+            int actualColumns = parseCsvLine(line).length;
+            if (actualColumns < minimumColumns) {
+                report.addWarning(path.getFileName() + " line " + (i + 1)
+                        + " has " + actualColumns + " columns; expected at least " + minimumColumns + ".");
+            }
+        }
     }
 }

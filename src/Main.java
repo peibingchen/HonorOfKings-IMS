@@ -16,6 +16,7 @@ import service.FileStorageService;
 import service.GameDataManager;
 import service.MatchHistoryService;
 import service.PermissionService;
+import service.PersistenceReport;
 import service.RankingService;
 import service.RecommendationEngine;
 import service.RelationshipManagementService;
@@ -57,6 +58,9 @@ public class Main {
         System.out.println("Honor of Kings Information Management System");
         System.out.println("Default admin: A001 / admin123");
         System.out.println("Default player example: P001 / p001");
+        if (persistence.hasSavedData(Path.of("data"))) {
+            System.out.println("Saved CSV data detected. Admins can use option 10 to load it.");
+        }
         while (true) {
             if (!auth.isLoggedIn()) {
                 loginMenu();
@@ -264,8 +268,9 @@ public class Main {
         }
         try {
             storage.saveSummary(Path.of("docs", "data-summary.txt"));
-            persistence.saveAll(Path.of("data"));
+            PersistenceReport report = persistence.saveAllWithBackup(Path.of("data"));
             System.out.println("Saved to docs/data-summary.txt and data/*.csv");
+            System.out.print(report.format());
         } catch (IOException ex) {
             System.out.println("Could not save data: " + ex.getMessage());
         }
@@ -277,8 +282,9 @@ public class Main {
             return;
         }
         try {
-            persistence.loadInto(Path.of("data"));
+            PersistenceReport report = persistence.loadIntoWithReport(Path.of("data"));
             System.out.println("Loaded data from data/*.csv");
+            System.out.print(report.format());
         } catch (IOException | IllegalArgumentException ex) {
             System.out.println("Could not load data: " + ex.getMessage());
         }
