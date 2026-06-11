@@ -95,6 +95,9 @@ public class Main {
             System.out.println("9. Save data");
             System.out.println("10. Load data");
         }
+        System.out.println("11. Combat simulation (extra feature framework)");
+        System.out.println("12. Recommendation engine (extra feature framework)");
+        System.out.println("13. Swing GUI (extra feature framework)");
         System.out.println("L. Logout");
         System.out.println("0. Exit");
         String choice = input.readLine("Choose: ").toUpperCase();
@@ -109,6 +112,9 @@ public class Main {
             case "8" -> runAdminManagement(user);
             case "9" -> saveDataSummary(user);
             case "10" -> loadData(user);
+            case "11" -> showCombatSimulationFramework();
+            case "12" -> showRecommendationFramework();
+            case "13" -> showGuiFramework();
             case "L" -> auth.logout();
             case "0" -> System.exit(0);
             default -> System.out.println("Unknown option.");
@@ -269,5 +275,17 @@ public class Main {
         } catch (IOException | IllegalArgumentException ex) {
             System.out.println("Could not load data: " + ex.getMessage());
         }
+    }
+
+    private void showCombatSimulationFramework() {
+        System.out.println("Combat simulation framework is ready. Full implementation will be added in a later stage.");
+    }
+
+    private void showRecommendationFramework() {
+        System.out.println("Recommendation engine framework is ready. Full implementation will be added in a later stage.");
+    }
+
+    private void showGuiFramework() {
+        System.out.println("Swing GUI framework classes are ready. GUI launch will be connected in a later stage.");
     }
 }
