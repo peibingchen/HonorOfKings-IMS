@@ -7,16 +7,20 @@ import javax.swing.JTextField;
 import model.Equipment;
 import model.Hero;
 import model.Player;
+import model.Recommendation;
+import service.RecommendationEngine;
 import service.SearchService;
 
 public class HeroDetailsPanel extends JPanel {
     private final SearchService searchService;
+    private final RecommendationEngine recommendationEngine;
     private final JTextField queryField = new JTextField(18);
     private final JTextArea outputArea = PanelFactory.createOutputArea(
             "Hero details output will appear here after service actions are connected.");
 
-    public HeroDetailsPanel(SearchService searchService) {
+    public HeroDetailsPanel(SearchService searchService, RecommendationEngine recommendationEngine) {
         this.searchService = searchService;
+        this.recommendationEngine = recommendationEngine;
         JButton searchButton = new JButton("Search Hero");
         searchButton.addActionListener(event -> searchHero());
         PanelFactory.applyStandardLayout(this,
@@ -44,6 +48,10 @@ public class HeroDetailsPanel extends JPanel {
         builder.append("Players owning this hero:\n");
         for (Player player : searchService.findPlayersOwningHero(hero)) {
             builder.append("- ").append(player.getName()).append('\n');
+        }
+        builder.append("Recommended equipment:\n");
+        for (Recommendation recommendation : recommendationEngine.recommendEquipment(hero, 3)) {
+            builder.append("- ").append(recommendation.getReport()).append('\n');
         }
         outputArea.setText(builder.toString());
     }

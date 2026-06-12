@@ -347,7 +347,8 @@ public class Main {
     }
 
     private void showGuiFramework() {
-        SwingUtilities.invokeLater(() -> new MainFrame(auth, search, ranking).setVisible(true));
+        SwingUtilities.invokeLater(() -> new MainFrame(
+                auth, search, ranking, combatSimulator, recommendationEngine).setVisible(true));
         System.out.println("Swing GUI opened. Close the GUI window to return to console-only use.");
     }
 
