@@ -1164,11 +1164,94 @@ Bug found:
 
 None
 
+## Test 29: Full Code-Level Regression Test
+
+Function tested: Complete code-level regression after extra feature implementation
+
+Input:
+
+Compilation:
+
+```powershell
+javac -d out src\Main.java src\model\*.java src\service\*.java src\util\*.java src\gui\*.java
+```
+
+Scripted console runs were executed for:
+
+- admin login;
+- player login;
+- player lookup;
+- team overview;
+- hero details;
+- equipment statistics;
+- player and team match history;
+- leaderboard;
+- player self-edit;
+- player blocked from admin management;
+- admin CRUD for players, heroes, equipment, teams, and match records;
+- match hero pick add/update and clear;
+- player-hero relationship management;
+- hero-equipment relationship management;
+- save/load persistence;
+- combat simulation;
+- recommendation engine.
+
+Expected output:
+
+All core and implemented extra features should compile and run without crashing. Admin-only functions should remain protected. Save/load should display persistence reports. Extra features should produce combat and recommendation output.
+
+Actual output:
+
+The project compiled successfully. The scripted runs verified:
+
+```text
+Login successful. Welcome, Admin.
+Login successful. Welcome, Chen Wei.
+Only admins can manage data.
+Player added.
+Player updated.
+Player deleted.
+Hero added.
+Hero updated.
+Hero deleted.
+Equipment added.
+Equipment updated.
+Equipment deleted.
+Team added.
+Team updated.
+Team deleted.
+Match record added.
+Match hero pick saved.
+Match hero picks cleared.
+Match record updated.
+Match record deleted.
+Hero assigned to player.
+Hero removed from player.
+Equipment assigned to hero.
+Equipment removed from hero.
+Save data completed.
+Load data completed.
+BattleResult | winner=Li Bai | loser=Diao Chan
+Equipment | E011 | Blood Bow
+Hero | H009 | Bai Qi
+No recommendations available.
+```
+
+The full regression did not reveal any new functional bug. The GUI package was included in compilation, but a visual GUI window test was not performed in this run.
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
 ## Test Summary
 
-Total test cases: 28
+Total test cases: 29
 
-- Pass: 27
+- Pass: 28
 - Partial Pass: 0
 - Fail: 1
 
@@ -1185,3 +1268,4 @@ Main notes:
 - Extra-credit recommendation engine verified: equipment, hero, and team composition recommendation paths run successfully.
 - Extra-credit enhanced persistence verified: startup saved-data detection, CSV backup, save report, and load report work.
 - Extra-credit Swing GUI integration verified by successful compilation with GUI package and service-connected GUI classes.
+- Full code-level regression verified after extra feature implementation: no new functional bug was found.
