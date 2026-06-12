@@ -1053,11 +1053,122 @@ Bug found:
 
 None
 
+## Test 27: Extra Feature Enhanced Persistence
+
+Function tested: Enhanced data persistence with backup, startup detection, validation, and load report
+
+Input:
+
+Save test:
+
+```text
+1
+A001
+admin123
+9
+0
+```
+
+Load test:
+
+```text
+1
+A001
+admin123
+10
+0
+```
+
+Expected output:
+
+The system should detect existing saved CSV data on startup, save data with a backup of previous CSV files, and load data with a clear load report.
+
+Actual output:
+
+On startup, the system displayed:
+
+```text
+Saved CSV data detected. Admins can use option 10 to load it.
+```
+
+The save test displayed:
+
+```text
+Saved to docs/data-summary.txt and data/*.csv
+Save data completed.
+Backup: data\backups\20260612-153137
+- Existing CSV files were copied before saving new data.
+- Saved 16 users.
+- Saved 15 players.
+- Saved 15 heroes.
+- Saved 20 equipment items.
+- Saved 3 teams.
+- Saved 10 match records.
+```
+
+The load test displayed:
+
+```text
+Loaded data from data/*.csv
+Load data completed.
+- Loaded 15 players.
+- Loaded 15 heroes.
+- Loaded 20 equipment items.
+- Loaded 3 teams.
+- Loaded 10 match records.
+```
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
+## Test 28: Extra Feature Swing GUI Integration
+
+Function tested: Swing GUI framework and service integration
+
+Input:
+
+```powershell
+javac -d out src\Main.java src\model\*.java src\service\*.java src\util\*.java src\gui\*.java
+```
+
+Expected output:
+
+The project should compile successfully with the `src/gui` package included. GUI classes should exist for login, player lookup, team overview, hero details, and leaderboard, and menu option `13. Swing GUI` should be available.
+
+Actual output:
+
+The compile command completed successfully. The following GUI classes were present:
+
+```text
+MainFrame.java
+LoginPanel.java
+PlayerLookupPanel.java
+TeamOverviewPanel.java
+HeroDetailsPanel.java
+LeaderboardPanel.java
+PanelFactory.java
+```
+
+`Main.java` includes menu option `13. Swing GUI`, and the GUI panels are connected to the existing `AuthenticationService`, `SearchService`, and `RankingService` classes.
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
 ## Test Summary
 
-Total test cases: 26
+Total test cases: 28
 
-- Pass: 25
+- Pass: 27
 - Partial Pass: 0
 - Fail: 1
 
@@ -1072,3 +1183,5 @@ Main notes:
 - Full core regression verified: all basic coursework features were tested together and passed.
 - Extra-credit combat simulation verified: hero battle simulation outputs winner, health, rounds, and combat log.
 - Extra-credit recommendation engine verified: equipment, hero, and team composition recommendation paths run successfully.
+- Extra-credit enhanced persistence verified: startup saved-data detection, CSV backup, save report, and load report work.
+- Extra-credit Swing GUI integration verified by successful compilation with GUI package and service-connected GUI classes.
