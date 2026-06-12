@@ -1247,11 +1247,108 @@ Bug found:
 
 None
 
+## Test 30: Final Full Code Function Regression Test
+
+Function tested: All implemented code functions after final GUI and extra feature completion
+
+Input:
+
+Compilation:
+
+```powershell
+javac -d out src\Main.java src\model\*.java src\service\*.java src\util\*.java src\gui\*.java
+```
+
+Scripted console tests were executed for:
+
+- admin login;
+- player login;
+- player lookup;
+- team overview;
+- hero details with recommended equipment;
+- equipment statistics;
+- player match history;
+- team match history;
+- leaderboard;
+- player self-edit;
+- player permission blocking for admin management;
+- admin CRUD for player, hero, equipment, team, and match record;
+- match hero pick add/update and clear;
+- player-hero and hero-equipment relationship management;
+- save/load with enhanced persistence reports;
+- combat simulation;
+- recommendation engine for equipment, heroes, and team composition;
+- Swing GUI package compilation including `CombatSimulationPanel` and `RecommendationPanel`.
+
+Expected output:
+
+All implemented code functions should compile and run successfully. No existing core feature should regress after the final GUI and extra feature changes.
+
+Actual output:
+
+The project compiled successfully with all model, service, utility, and GUI classes. The scripted runs verified the following representative outputs:
+
+```text
+Login successful. Welcome, Admin.
+Login successful. Welcome, Chen Wei.
+P001 | Chen Wei | team=Red Phoenix | level=38 | winRate=70.0%
+T001 | Red Phoenix | members=5 | avgLevel=35.4
+H001 | Li Bai | ASSASSIN
+Recommended equipment:
+Equipment ranking formula: usageCount * 2 + rating + power / 100.
+Wins=2, Losses=2
+Only admins can manage data.
+Player added.
+Player updated.
+Player deleted.
+Hero added.
+Hero updated.
+Hero deleted.
+Equipment added.
+Equipment updated.
+Equipment deleted.
+Team added.
+Team updated.
+Team deleted.
+Match record added.
+Match hero pick saved.
+Match hero picks cleared.
+Match record updated.
+Match record deleted.
+Hero assigned to player.
+Hero removed from player.
+Equipment assigned to hero.
+Equipment removed from hero.
+Save data completed.
+Load data completed.
+BattleResult | winner=Li Bai | loser=Diao Chan
+Equipment | E011 | Blood Bow
+Hero | H009 | Bai Qi
+No recommendations available.
+```
+
+The GUI classes compiled successfully, including:
+
+```text
+CombatSimulationPanel.java
+RecommendationPanel.java
+```
+
+No new functional bug was found.
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
 ## Test Summary
 
-Total test cases: 29
+Total test cases: 30
 
-- Pass: 28
+- Pass: 29
 - Partial Pass: 0
 - Fail: 1
 
@@ -1269,3 +1366,4 @@ Main notes:
 - Extra-credit enhanced persistence verified: startup saved-data detection, CSV backup, save report, and load report work.
 - Extra-credit Swing GUI integration verified by successful compilation with GUI package and service-connected GUI classes.
 - Full code-level regression verified after extra feature implementation: no new functional bug was found.
+- Final full code regression verified after completing GUI combat and recommendation panels: all implemented code functions passed.
