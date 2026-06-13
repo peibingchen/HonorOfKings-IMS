@@ -53,7 +53,12 @@ public class Main {
     private final InputHelper input = new InputHelper(new Scanner(System.in));
 
     public static void main(String[] args) {
-        new Main().run();
+        Main app = new Main();
+        if (args.length > 0 && "--gui".equalsIgnoreCase(args[0])) {
+            app.launchGuiAndKeepAlive();
+        } else {
+            app.run();
+        }
     }
 
     private void run() {
@@ -63,6 +68,9 @@ public class Main {
         if (persistence.hasSavedData(Path.of("data"))) {
             System.out.println("Saved CSV data detected. Admins can use option 10 to load it.");
         }
+        if (!chooseStartupMode()) {
+            return;
+        }
         while (true) {
             if (!auth.isLoggedIn()) {
                 loginMenu();
@@ -70,6 +78,23 @@ public class Main {
                 mainMenu();
             }
         }
+    }
+
+    private boolean chooseStartupMode() {
+        System.out.println("\nStartup mode");
+        System.out.println("1. Console mode");
+        System.out.println("2. Swing GUI mode");
+        System.out.println("0. Exit");
+        String choice = input.readLine("Choose: ");
+        if ("0".equals(choice)) {
+            System.out.println("Goodbye.");
+            return false;
+        }
+        if ("2".equals(choice)) {
+            launchGuiAndKeepAlive();
+            return false;
+        }
+        return true;
     }
 
     private void loginMenu() {
@@ -347,9 +372,18 @@ public class Main {
     }
 
     private void showGuiFramework() {
+        launchGui();
+        System.out.println("Swing GUI opened. Close the GUI window to return to console-only use.");
+    }
+
+    private void launchGuiAndKeepAlive() {
+        launchGui();
+        System.out.println("Swing GUI opened. Close the GUI window to exit.");
+    }
+
+    private void launchGui() {
         SwingUtilities.invokeLater(() -> new MainFrame(
                 auth, search, ranking, combatSimulator, recommendationEngine).setVisible(true));
-        System.out.println("Swing GUI opened. Close the GUI window to return to console-only use.");
     }
 
     private void printRecommendations(List<Recommendation> recommendations) {
