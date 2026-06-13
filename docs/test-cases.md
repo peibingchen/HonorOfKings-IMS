@@ -1344,11 +1344,75 @@ Bug found:
 
 None
 
+## Test 31: GUI Startup Mode Fix Test
+
+Function tested: Startup mode selection and direct Swing GUI launch after GUI startup fix
+
+Input:
+
+Compilation:
+
+```powershell
+javac -d out src\Main.java src\model\*.java src\service\*.java src\util\*.java src\gui\*.java
+```
+
+Direct GUI launch:
+
+```powershell
+java -cp out Main --gui
+```
+
+Console startup mode:
+
+```text
+1
+1
+A001
+admin123
+0
+```
+
+Expected output:
+
+The project should compile successfully. Running with `--gui` should open the Swing GUI without crashing. Running without `--gui` should display the startup mode menu, allow console mode selection, and keep the original console login workflow working.
+
+Actual output:
+
+The project compiled successfully. The direct GUI launch stayed running after startup, confirming that the Swing GUI opened without immediate failure:
+
+```text
+GUI process is running after startup check.
+```
+
+The console startup mode test displayed:
+
+```text
+Startup mode
+1. Console mode
+2. Swing GUI mode
+0. Exit
+Choose:
+```
+
+After choosing console mode, the original login flow still worked:
+
+```text
+Login successful. Welcome, Admin.
+```
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
 ## Test Summary
 
-Total test cases: 30
+Total test cases: 31
 
-- Pass: 29
+- Pass: 30
 - Partial Pass: 0
 - Fail: 1
 
@@ -1367,3 +1431,4 @@ Main notes:
 - Extra-credit Swing GUI integration verified by successful compilation with GUI package and service-connected GUI classes.
 - Full code-level regression verified after extra feature implementation: no new functional bug was found.
 - Final full code regression verified after completing GUI combat and recommendation panels: all implemented code functions passed.
+- GUI startup mode fix verified: direct `--gui` launch opens successfully and console mode still works.
