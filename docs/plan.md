@@ -2,7 +2,7 @@
 
 ## 1. Project Goal
 
-This project implements an AI-assisted Information Management System for Honor of Kings. The system is a Java application with a stable console interface for the core coursework requirements and planned extra-credit modules for recommendation, combat simulation, GUI, enhanced persistence, and advanced AI reflection.
+This project implements an AI-assisted Information Management System for Honor of Kings. The system is a Java application with a stable console interface for the core coursework requirements and implemented extra-credit modules for recommendation, combat simulation, GUI, enhanced persistence, and advanced AI reflection documentation.
 
 The system has two user roles:
 
@@ -54,13 +54,13 @@ Users can search a hero by ID or name. The system displays:
 - attack, defense, and health;
 - compatible equipment;
 - players who own the hero;
-- recommended equipment after the recommendation module is implemented.
+- recommended equipment from the implemented recommendation module.
 
 Implementation plan:
 
 - `SearchService.findHero()` locates the hero.
 - `SearchService.findPlayersOwningHero()` finds owners.
-- `RecommendationEngine.recommendEquipment()` will add recommendations as an extra-credit feature.
+- `RecommendationEngine.recommendEquipment()` provides recommendations as an extra-credit feature.
 
 ### 2.4 Equipment Statistics
 
@@ -176,7 +176,7 @@ Implementation plan:
 - `DataInitializer.createSampleData()` creates sample data at startup.
 - `GameDataManager` stores users, players, heroes, equipment, teams, and match records.
 
-## 3. Extra-Credit Feature Plan
+## 3. Extra-Credit Feature Implementation
 
 ### 3.1 Combat Simulation
 
@@ -184,7 +184,7 @@ PDF feature:
 
 Implement a turn-based battle simulator using hero stats, equipment, random factors, critical hit or dodge, win/loss result, and a combat report.
 
-Implementation plan:
+Implementation:
 
 - Add `model.BattleResult`.
 - Add `service.CombatSimulator`.
@@ -218,7 +218,7 @@ PDF feature:
 
 Recommend heroes or equipment based on hero type, player preference, win rate, equipment usage, or team composition.
 
-Implementation plan:
+Implementation:
 
 - Add `model.Recommendation`.
 - Add `service.RecommendationEngine`.
@@ -233,8 +233,8 @@ recommendationScore = equipmentScore + heroTypeCompatibilityBonus + usageBonus
   - if a player lacks support, recommend a support;
   - otherwise recommend high-stat heroes not owned by the player.
 - Team recommendation checks whether a team has at least one tank, one mage, one marksman, one assassin/warrior, and one support.
-- `Hero Details` will show recommended equipment.
-- Player menu can show recommended heroes.
+- `Hero Details` shows recommended equipment.
+- The recommendation menu and GUI recommendation panel show equipment, hero, and team recommendations.
 
 ### 3.3 GUI
 
@@ -242,7 +242,7 @@ PDF feature:
 
 Implement a GUI using Swing or JavaFX supporting at least player lookup, team overview, hero details, and leaderboard.
 
-Implementation plan:
+Implementation:
 
 - Use Swing to avoid external dependencies.
 - Add `gui.MainFrame`.
@@ -251,9 +251,11 @@ Implementation plan:
   - `PlayerLookupPanel`;
   - `TeamOverviewPanel`;
   - `HeroDetailsPanel`;
-  - `LeaderboardPanel`.
+  - `LeaderboardPanel`;
+  - `CombatSimulationPanel`;
+  - `RecommendationPanel`.
 - GUI uses existing service classes instead of duplicating logic.
-- Console mode remains the primary stable mode.
+- Console mode remains the primary stable mode, and startup mode also allows direct GUI launch.
 
 ### 3.4 Data Persistence
 
@@ -261,22 +263,20 @@ PDF feature:
 
 Save and load data using text files, CSV files, JSON files, or JDBC database.
 
-Current implementation:
+Implementation:
 
 - `DataPersistenceService.saveAll()` saves structured CSV files.
 - `DataLoadService.loadInto()` loads structured CSV files back into `GameDataManager`.
 - `FileStorageService.saveSummary()` exports a readable summary.
 
-Enhancement plan:
-
-- Improve invalid-row reporting.
-- Add backup folder support:
+- Invalid-row and missing-file reporting is handled by `DataLoadService` and `PersistenceReport`.
+- Backup folder support is implemented:
 
 ```text
 data/backups/
 ```
 
-- Add a startup option to load existing data automatically if files exist.
+- Startup detects saved CSV data and informs admins that option 10 can load it.
 
 ### 3.5 Advanced AI Reflection
 
@@ -337,8 +337,9 @@ Implementation plan:
 - `AdminMenuService`: admin menu input routing.
 - `RelationshipManagementService`: player-hero and hero-equipment relationship management.
 - `FileStorageService`: readable data summary output.
-- `DataPersistenceService`: structured CSV save/load entry point.
-- `DataLoadService`: structured CSV loading.
+- `DataPersistenceService`: structured CSV save/load entry point, backup workflow, and persistence reports.
+- `DataLoadService`: structured CSV loading and validation.
+- `PersistenceReport`: save/load operation report.
 - `RecommendationEngine`: extra-credit recommendations.
 - `CombatSimulator`: extra-credit battle simulation.
 
@@ -348,11 +349,11 @@ Implementation plan:
 - `InputHelper`: console input helper.
 - `AdminMenuOption`: admin menu options.
 - `AdminMenuPrinter`: admin menu display.
-- `MainFrame`, `LoginPanel`, `PlayerLookupPanel`, `TeamOverviewPanel`, `HeroDetailsPanel`, `LeaderboardPanel`: planned Swing GUI classes.
+- `MainFrame`, `LoginPanel`, `PlayerLookupPanel`, `TeamOverviewPanel`, `HeroDetailsPanel`, `LeaderboardPanel`, `CombatSimulationPanel`, `RecommendationPanel`, `PanelFactory`: implemented Swing GUI classes.
 
 ## 6. Complete UML Design
 
-The complete UML is also stored in the project root as `UML.md`. It includes both basic coursework classes and extra-credit classes.
+The UML below includes both basic coursework classes and extra-credit classes.
 
 ```mermaid
 classDiagram
@@ -538,14 +539,26 @@ class FileStorageService {
 class DataPersistenceService {
   -dataManager GameDataManager
   +saveAll(directory Path) void
+  +saveAllWithBackup(directory Path) PersistenceReport
   +loadAll(directory Path) GameDataManager
   +loadInto(directory Path) void
+  +loadIntoWithReport(directory Path) PersistenceReport
 }
 
 class DataLoadService {
   +canLoad(directory Path) boolean
+  +validateFiles(directory Path) PersistenceReport
   +loadAll(directory Path) GameDataManager
   +loadInto(directory Path, target GameDataManager) void
+}
+
+class PersistenceReport {
+  -operation String
+  -successful boolean
+  -backupDirectory Path
+  -messages List~String~
+  -warnings List~String~
+  +format() String
 }
 
 class RecommendationEngine {
@@ -574,6 +587,9 @@ class PlayerLookupPanel
 class TeamOverviewPanel
 class HeroDetailsPanel
 class LeaderboardPanel
+class CombatSimulationPanel
+class RecommendationPanel
+class PanelFactory
 
 class Role {
   <<enumeration>>
@@ -639,6 +655,8 @@ RelationshipManagementService --> GameDataManager
 FileStorageService --> GameDataManager
 DataPersistenceService --> GameDataManager
 DataLoadService --> GameDataManager
+DataPersistenceService --> PersistenceReport
+DataLoadService --> PersistenceReport
 RecommendationEngine --> GameDataManager
 RecommendationEngine --> Recommendation
 CombatSimulator --> Hero
@@ -651,6 +669,8 @@ Main --> RankingService
 Main --> MatchHistoryService
 Main --> AdminMenuService
 Main --> DataPersistenceService
+Main --> CombatSimulator
+Main --> RecommendationEngine
 MainFrame --> AuthenticationService
 LoginPanel --> AuthenticationService
 PlayerLookupPanel --> SearchService
@@ -658,6 +678,10 @@ TeamOverviewPanel --> SearchService
 HeroDetailsPanel --> SearchService
 HeroDetailsPanel --> RecommendationEngine
 LeaderboardPanel --> RankingService
+CombatSimulationPanel --> SearchService
+CombatSimulationPanel --> CombatSimulator
+RecommendationPanel --> SearchService
+RecommendationPanel --> RecommendationEngine
 ```
 
 ## 7. Data Design
@@ -688,6 +712,7 @@ data/hero-equipment.csv
 data/match-records.csv
 data/match-picks.csv
 docs/data-summary.txt
+data/backups/
 ```
 
 ## 8. AI Usage Plan
@@ -833,7 +858,6 @@ ai/
   prompts.md
   agent-log.md
   reflection.md
-UML.md
 README.md
 git-history.txt
 ```
