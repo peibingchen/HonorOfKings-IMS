@@ -9,7 +9,7 @@ Some commits were supported by one focused prompt. More complex commits, such as
 Time: 2026-06-03 20:12  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `9d59ed1`
+Related Commit: `9d59ed181809edd7298917bddb59a80235c6531a`
 
 ### My Prompt
 
@@ -28,7 +28,7 @@ I accepted the model structure because it matched the required domain classes in
 Time: 2026-06-03 20:18  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `9d59ed1`
+Related Commit: `9d59ed181809edd7298917bddb59a80235c6531a`
 
 ### My Prompt
 
@@ -47,7 +47,7 @@ I accepted the encapsulation suggestions because they made the model layer easie
 Time: 2026-06-03 20:43  
 Tool/Model: Codex / GPT-5  
 Agent Role: Architect Agent  
-Related Commit: `bdd60eb`
+Related Commit: `bdd60ebf69a5a330658ed67187719898cac5bff7`
 
 ### My Prompt
 
@@ -66,7 +66,7 @@ I accepted the layered design because it reduced the risk of putting all logic i
 Time: 2026-06-03 20:50  
 Tool/Model: Codex / GPT-5  
 Agent Role: Architect Agent  
-Related Commit: `bdd60eb`
+Related Commit: `bdd60ebf69a5a330658ed67187719898cac5bff7`
 
 ### My Prompt
 
@@ -85,7 +85,7 @@ I accepted the high-level UML relationships. I treated the UML as a design guide
 Time: 2026-06-03 21:57  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `3673990`
+Related Commit: `36739903c4fe85fc749d0d6b21f25c89cd984a10`
 
 ### My Prompt
 
@@ -104,7 +104,7 @@ I accepted the service separation and manually tested the main paths after imple
 Time: 2026-06-03 22:08  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `3673990`
+Related Commit: `36739903c4fe85fc749d0d6b21f25c89cd984a10`
 
 ### My Prompt
 
@@ -123,7 +123,7 @@ I accepted the deterministic ordering because it made test results stable and ex
 Time: 2026-06-04 01:49  
 Tool/Model: Codex / GPT-5  
 Agent Role: Testing/Reviewer Agent  
-Related Commit: `d0d6a72`
+Related Commit: `d0d6a72cdf2f9ed4f6d7fd6020e6a6cbf47be1db`
 
 ### My Prompt
 
@@ -142,7 +142,7 @@ I accepted the wording improvement because it better explained the development d
 Time: 2026-06-06 01:59  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `c7a64fc`
+Related Commit: `c7a64fcf89a0fab970e8dd5961ac2382fd73714d`
 
 ### My Prompt
 
@@ -161,7 +161,7 @@ I accepted the implementation after checking that it followed the existing packa
 Time: 2026-06-10 17:10  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `caad272`
+Related Commit: `caad27292f0fdd7b2b05fbe20ba43e800fbadecf`
 
 ### My Prompt
 
@@ -180,7 +180,7 @@ I accepted the approach because it completed the required file I/O and relations
 Time: 2026-06-10 17:25  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `caad272`
+Related Commit: `caad27292f0fdd7b2b05fbe20ba43e800fbadecf`
 
 ### My Prompt
 
@@ -199,7 +199,7 @@ I accepted the loading order because it avoided null references when restoring r
 Time: 2026-06-11 20:05  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `824829b`
+Related Commit: `824829bbfb8972b6f683dc0e159d9fc60b146a06`
 
 ### My Prompt
 
@@ -218,7 +218,7 @@ I accepted the implementation because it matched the extra-credit requirement an
 Time: 2026-06-11 20:56  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `9aea350`
+Related Commit: `9aea3507ec7d11a160cbad53d8b6a7c65e9c5f61`
 
 ### My Prompt
 
@@ -237,7 +237,7 @@ I accepted the deterministic formula because it is easier to test than random re
 Time: 2026-06-11 22:42  
 Tool/Model: Codex / GPT-5  
 Agent Role: Architect Agent  
-Related Commit: `27d3359`
+Related Commit: `27d3359887b6d6dd555262ea9e6a186aea5de1fa`
 
 ### My Prompt
 
@@ -256,7 +256,7 @@ I accepted the architecture because it improved persistence without changing the
 Time: 2026-06-12 00:42  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `c8cef19`
+Related Commit: `c8cef194f9fd2c3ee9dc27d7169611c4cc7dc02c`
 
 ### My Prompt
 
@@ -275,7 +275,7 @@ I accepted the service-based GUI connection because it reused tested logic inste
 Time: 2026-06-14 15:20  
 Tool/Model: Codex / GPT-5  
 Agent Role: Architect Agent  
-Related Commit: `81b0c6c`
+Related Commit: `81b0c6c67fc1216d6fdc5134927e8fc3baaecfac`
 
 ### My Prompt
 
@@ -294,7 +294,7 @@ I accepted the documentation alignment because it removed outdated core-only wor
 Time: 2026-06-06 02:15  
 Tool/Model: Codex / GPT-5  
 Agent Role: Testing/Reviewer Agent  
-Related Commit: `c7a64fc`
+Related Commit: `c7a64fcf89a0fab970e8dd5961ac2382fd73714d`
 
 ### My Prompt
 
@@ -313,7 +313,7 @@ I accepted the finding as a real gap. I recorded it as a failed manual test firs
 Time: 2026-06-11 20:16  
 Tool/Model: Codex / GPT-5  
 Agent Role: Testing/Reviewer Agent  
-Related Commit: `824829b`
+Related Commit: `824829bbfb8972b6f683dc0e159d9fc60b146a06`
 
 ### My Prompt
 
@@ -332,7 +332,7 @@ I accepted these safeguards because they made the simulation more reliable. I ve
 Time: 2026-06-11 21:05  
 Tool/Model: Codex / GPT-5  
 Agent Role: Testing/Reviewer Agent  
-Related Commit: `9aea350`
+Related Commit: `9aea3507ec7d11a160cbad53d8b6a7c65e9c5f61`
 
 ### My Prompt
 
@@ -351,7 +351,7 @@ I accepted the reason field and deterministic scoring. This made recommendation 
 Time: 2026-06-11 22:55  
 Tool/Model: Codex / GPT-5  
 Agent Role: Architect Agent  
-Related Commit: `27d3359`
+Related Commit: `27d3359887b6d6dd555262ea9e6a186aea5de1fa`
 
 ### My Prompt
 
@@ -370,7 +370,7 @@ I accepted this design because it preserved backward compatibility. The console 
 Time: 2026-06-12 00:55  
 Tool/Model: Codex / GPT-5  
 Agent Role: Testing/Reviewer Agent  
-Related Commit: `c8cef19`
+Related Commit: `c8cef194f9fd2c3ee9dc27d7169611c4cc7dc02c`
 
 ### My Prompt
 
@@ -389,7 +389,7 @@ I accepted the approach and kept GUI panels thin. Later I added combat and recom
 Time: 2026-06-03 22:20  
 Tool/Model: Codex / GPT-5  
 Agent Role: Testing/Reviewer Agent  
-Related Commit: `3673990`
+Related Commit: `36739903c4fe85fc749d0d6b21f25c89cd984a10`
 
 ### My Prompt
 
@@ -408,7 +408,7 @@ I accepted the review findings and updated the relevant service/menu behavior. I
 Time: 2026-06-10 17:36  
 Tool/Model: Codex / GPT-5  
 Agent Role: Testing/Reviewer Agent  
-Related Commit: `caad272`
+Related Commit: `caad27292f0fdd7b2b05fbe20ba43e800fbadecf`
 
 ### My Prompt
 
@@ -427,7 +427,7 @@ I accepted the safer loading checks and then verified the feature by saving data
 Time: 2026-06-12 01:05  
 Tool/Model: Codex / GPT-5  
 Agent Role: Implementation Agent  
-Related Commit: `c8cef19`
+Related Commit: `c8cef194f9fd2c3ee9dc27d7169611c4cc7dc02c`
 
 ### My Prompt
 
@@ -440,3 +440,22 @@ The AI suggested adding a small `PanelFactory` helper for shared output areas, s
 ### My Decision
 
 I accepted the helper because it reduced duplication while keeping the GUI simple. I did not move business logic into the helper; the panels still call the service layer directly.
+
+## Prompt 24
+
+Time: 2026-06-14 16:56  
+Tool/Model: Codex / GPT-5  
+Agent Role: Testing/Reviewer Agent  
+Related Commit: `b55406c5443409f0450931f1a4ce3856170d7a3b`
+
+### My Prompt
+
+Review the code for data consistency risks when admin users delete records. Focus on whether deleting players, heroes, equipment, or teams leaves stale references in other objects such as match hero picks, player-owned heroes, hero-compatible equipment, or team members. Suggest a focused code fix only.
+
+### AI Response Summary
+
+The AI identified referential cleanup risks in `GameDataManager`. It suggested removing deleted players from team members and match hero picks, removing deleted heroes from player-owned heroes and match hero picks, removing deleted equipment from hero-compatible equipment, and clearing player/team relationships when deleting a team.
+
+### My Decision
+
+I accepted the review finding because it improved data consistency without changing the public menu behavior. I implemented the cleanup in `GameDataManager` and added a helper method in `MatchRecord` to remove hero picks by deleted hero. I then compiled and tested deletion scenarios manually.
