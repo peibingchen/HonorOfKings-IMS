@@ -78,6 +78,10 @@ public class MatchRecord implements Reportable {
         return heroPicks.remove(player) != null;
     }
 
+    public boolean removeHeroPickByHero(Hero hero) {
+        return heroPicks.entrySet().removeIf(entry -> entry.getValue().equals(hero));
+    }
+
     public void clearHeroPicks() {
         heroPicks.clear();
     }

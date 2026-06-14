@@ -69,8 +69,12 @@ public class GameDataManager {
         if (!(person instanceof Player)) {
             return false;
         }
+        Player player = (Player) person;
         for (Team team : teams.values()) {
             team.removeMember(id);
+        }
+        for (MatchRecord record : matchRecords) {
+            record.removeHeroPick(player);
         }
         players.remove(id);
         users.remove(id);
@@ -78,15 +82,43 @@ public class GameDataManager {
     }
 
     public boolean deleteHero(String id) {
-        return heroes.remove(id) != null;
+        Hero hero = heroes.get(id);
+        if (hero == null) {
+            return false;
+        }
+        for (Player player : players.values()) {
+            player.removeHero(hero);
+        }
+        for (MatchRecord record : matchRecords) {
+            record.removeHeroPickByHero(hero);
+        }
+        heroes.remove(id);
+        return true;
     }
 
     public boolean deleteEquipment(String id) {
-        return equipment.remove(id) != null;
+        Equipment item = equipment.get(id);
+        if (item == null) {
+            return false;
+        }
+        for (Hero hero : heroes.values()) {
+            hero.removeCompatibleEquipment(item);
+        }
+        equipment.remove(id);
+        return true;
     }
 
     public boolean deleteTeam(String id) {
-        return teams.remove(id) != null;
+        Team team = teams.get(id);
+        if (team == null) {
+            return false;
+        }
+        for (Player player : new ArrayList<>(team.getMembers())) {
+            team.removeMember(player.getId());
+        }
+        matchRecords.removeIf(record -> record.getTeam().equals(team));
+        teams.remove(id);
+        return true;
     }
 
     public boolean deleteMatchRecord(String id) {
