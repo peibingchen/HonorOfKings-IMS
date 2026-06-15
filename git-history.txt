@@ -1,4 +1,6 @@
-* 207dd78 (HEAD -> master, origin/master) [Docs] update git ignore rules
+* a956ac2 (HEAD -> main) [Docs] complete README structure and align AI reflection
+* 2971ae8 (origin/main, origin/HEAD) [Docs] update git history export
+* 207dd78 [Docs] update git ignore rules
 * 721c9db [Docs] add git ignore rules
 * 6be130c [Docs] add git history export
 * da74b0a [Docs] add AI reflection aligned with prompt records
