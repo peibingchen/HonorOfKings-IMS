@@ -1,0 +1,42 @@
+* da74b0a (HEAD -> master) [Docs] add AI reflection aligned with prompt records
+* b26b05f [Docs] refine prompt records and verify commit references
+* 7837714 [Docs] update agent log with final multi-agent evidence
+* f2996f1 [Docs] update prompt records after referential cleanup review
+* b55406c [AI-Review] fix referential cleanup for deleted records
+* c68bbf5 [Docs] document realistic prompt records for AI-assisted workflow
+* 81b0c6c [AI-Architect] finalize architecture design and documentation alignment
+* 6721802 [Docs] add the draft of the project README and run instructions
+* 8a88187 [Test] add GUI startup mode fix test
+* c8ecb5a [Fix] add startup option for console or Swing GUI mode
+* 680c75f [Test] add final full code function regression test
+* aeb4845 [Fix] review requirements and complete remaining code functionality
+* 38bd790 [Test] add full code-level regression test after extra features
+* 17f2d61 [Test] add tests for enhanced persistence and Swing GUI integration
+* c8cef19 [AI-Implementation] connect Swing GUI panels to core services
+* 5e748d9 [Human] add Swing GUI framework
+* 27d3359 [AI-Architect] design enhanced persistence workflow
+* be74cfb [Test] add extra feature tests for combat simulation and recommendation engine
+* 9aea350 [AI-Implementation] implement recommendation engine
+* 824829b [AI-Implementation] implement combat simulation feature
+* 7f09d24 [Human] add extra feature class framework
+* ebc0e7e [Docs] update project plan with complete UML and extra feature strategy
+* ae63c16 [Test] verify full core feature set and confirm successful execution of all requirements
+* ce1ab14 [Test] add tests for data loading and relationship management
+* caad272 [AI-Implementation] implement data loading and relationship management features
+* b5a1389 [Human] add framework for data loading and relationship management
+* 84062ac [Test] validate successful fix of hero pick logic in match records
+* 3f7bf30 [Fix] patch missing hero pick logic in admin match record operations
+* 0f26edc [Test] add test case identifying missing hero pick logic in admin operations
+* c7a64fc [AI-Implementation] develop admin capabilities to add, edit, and delete system entities
+* 5a7d8a6 [Human] add admin menu framework for add edit delete actions
+* d0d6a72 [AI-Review] refine agent log wording based on review feedback
+* 67d0581 [Test] update manual test cases and persistence evidence
+* 3673990 [AI-Implementation] implement core services for authentication search ranking management and persistence
+* 3ee0f7a [Human] add service framework classes for core features
+* 8cfeef1 [Human] create the draft of UML class diagram using Mermaid
+* bdd60eb [AI-Architect] optimize project plan and system design blueprints based on architectural feedback
+* 9d59ed1 [AI-Implementation] implement Player Admin Hero Equipment Team MatchRecord models
+* cef464c [Human] implement Reportable interface for standardized text output
+* f7490ed [Human] create Person abstract base class with core attributes
+* 8887a32 [Docs] update the draft of design.md
+* a8505f9 [Docs] update the draft of plan.md
