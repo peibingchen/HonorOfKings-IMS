@@ -27,7 +27,7 @@ I accepted the model structure because it matched the required domain classes in
 
 Time: 2026-06-03 20:18  
 Tool/Model: Codex / GPT-5  
-Agent Role: Implementation Agent  
+Agent Role: Testing/Reviewer Agent  
 Related Commit: `9d59ed181809edd7298917bddb59a80235c6531a`
 
 ### My Prompt
@@ -121,7 +121,7 @@ I accepted the deterministic ordering because it made test results stable and ex
 ## Prompt 07
 
 Time: 2026-06-04 01:49  
-Tool/Model: Codex / GPT-5  
+Tool/Model: Gemini  
 Agent Role: Testing/Reviewer Agent  
 Related Commit: `d0d6a72cdf2f9ed4f6d7fd6020e6a6cbf47be1db`
 
@@ -273,7 +273,7 @@ I accepted the service-based GUI connection because it reused tested logic inste
 ## Prompt 15
 
 Time: 2026-06-14 15:20  
-Tool/Model: Codex / GPT-5  
+Tool/Model: Gemini  
 Agent Role: Architect Agent  
 Related Commit: `81b0c6c67fc1216d6fdc5134927e8fc3baaecfac`
 
@@ -368,7 +368,7 @@ I accepted this design because it preserved backward compatibility. The console 
 ## Prompt 20
 
 Time: 2026-06-12 00:55  
-Tool/Model: Codex / GPT-5  
+Tool/Model: Gemini  
 Agent Role: Testing/Reviewer Agent  
 Related Commit: `c8cef194f9fd2c3ee9dc27d7169611c4cc7dc02c`
 
@@ -431,15 +431,15 @@ Related Commit: `c8cef194f9fd2c3ee9dc27d7169611c4cc7dc02c`
 
 ### My Prompt
 
-After connecting the basic Swing panels, check whether the GUI code has a reusable pattern for repeated layout code. If there is duplication, suggest a small helper class without changing the service layer.
+After connecting the basic Swing panels, check whether the GUI code is reusing the existing layout helper consistently. If there is duplication in the panels, suggest small changes without changing the service layer.
 
 ### AI Response Summary
 
-The AI suggested adding a small `PanelFactory` helper for shared output areas, search controls, borders, and scroll panes. This reduced repeated Swing layout setup across the GUI panels.
+The AI suggested keeping the panel code connected through the existing `PanelFactory` helper for shared output areas, search controls, borders, and scroll panes. This kept repeated Swing layout setup out of the individual panels.
 
 ### My Decision
 
-I accepted the helper because it reduced duplication while keeping the GUI simple. I did not move business logic into the helper; the panels still call the service layer directly.
+I accepted this because it reduced duplication while keeping the GUI simple. I did not move business logic into the helper; the panels still call the service layer directly.
 
 ## Prompt 24
 
