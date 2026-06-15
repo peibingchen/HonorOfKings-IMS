@@ -109,55 +109,85 @@ Each team has 5 members. Players own multiple heroes, and heroes have compatible
 ## Project Structure
 
 ```text
+HonorOfKings-IMS/
+  README.md
+  git-history.txt
+  .gitignore
+
 src/
   Main.java
   model/
+    Admin.java
+    BattleResult.java
+    Equipment.java
+    EquipmentType.java
+    Hero.java
+    HeroType.java
+    MatchRecord.java
+    MatchResult.java
     Person.java
     Player.java
-    Admin.java
-    Hero.java
-    Equipment.java
-    Team.java
-    MatchRecord.java
-    BattleResult.java
     Recommendation.java
-    enums and Reportable interface
+    Reportable.java
+    Role.java
+    Team.java
   service/
-    AuthenticationService.java
-    GameDataManager.java
-    SearchService.java
-    RankingService.java
-    MatchHistoryService.java
     AdminManagementService.java
-    RelationshipManagementService.java
-    DataPersistenceService.java
-    DataLoadService.java
+    AdminMenuService.java
+    AuthenticationService.java
     CombatSimulator.java
+    DataLoadService.java
+    DataPersistenceService.java
+    DataValidationService.java
+    FileStorageService.java
+    GameDataManager.java
+    MatchHistoryService.java
+    PermissionService.java
+    PersistenceReport.java
+    PlayerSelfService.java
+    RankingService.java
     RecommendationEngine.java
+    RelationshipManagementService.java
+    SearchService.java
   util/
-    DataInitializer.java
-    InputHelper.java
     AdminMenuOption.java
     AdminMenuPrinter.java
+    DataInitializer.java
+    InputHelper.java
   gui/
-    MainFrame.java
-    LoginPanel.java
-    PlayerLookupPanel.java
-    TeamOverviewPanel.java
+    CombatSimulationPanel.java
     HeroDetailsPanel.java
     LeaderboardPanel.java
-    CombatSimulationPanel.java
+    LoginPanel.java
+    MainFrame.java
+    PanelFactory.java
+    PlayerLookupPanel.java
     RecommendationPanel.java
+    TeamOverviewPanel.java
+
+data/
+  equipment.csv
+  hero-equipment.csv
+  heroes.csv
+  match-picks.csv
+  match-records.csv
+  player-heroes.csv
+  players.csv
+  team-members.csv
+  teams.csv
+  users.csv
 
 docs/
-  plan.md
-  design.md
-  test-cases.md
   data-summary.txt
+  design.md
+  plan.md
+  test-cases.md
   uml.png
 
 ai/
   agent-log.md
+  prompts.md
+  reflection.md
 ```
 
 ## Persistence Files

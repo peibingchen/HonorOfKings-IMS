@@ -7,7 +7,7 @@ I used Codex, GPT, and Gemini-based assistance during the project. I used the to
 - Architect Agent for requirement analysis, class design, UML-style thinking, package structure, and final design alignment.
 - Implementation Agent for selected Java methods and classes after the framework was already planned.
 - Testing/Reviewer Agent for code review, gap finding, edge-case review, and wording review.
-- Gemini as an extra review/reference model for checking agent-log wording, final architecture documentation alignment, and whether the Swing GUI connection covered the required screens without duplicating service logic.
+- Gemini as an extra review/reference model for checking final architecture documentation alignment and whether the Swing GUI connection covered the required screens without duplicating service logic.
 
 I did not treat AI output as automatically correct. I used it as a development assistant and then checked the code through compilation, console runs, and manual test cases.
 
