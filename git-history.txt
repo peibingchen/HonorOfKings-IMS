@@ -1,4 +1,7 @@
-* da74b0a (HEAD -> master) [Docs] add AI reflection aligned with prompt records
+* 207dd78 (HEAD -> master, origin/master) [Docs] update git ignore rules
+* 721c9db [Docs] add git ignore rules
+* 6be130c [Docs] add git history export
+* da74b0a [Docs] add AI reflection aligned with prompt records
 * b26b05f [Docs] refine prompt records and verify commit references
 * 7837714 [Docs] update agent log with final multi-agent evidence
 * f2996f1 [Docs] update prompt records after referential cleanup review
