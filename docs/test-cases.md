@@ -1408,11 +1408,61 @@ Bug found:
 
 None
 
+## Test 32: Submitted CSV Match Record Count After Data Fix
+
+Function tested: Submitted CSV data consistency for match records
+
+Input:
+
+```powershell
+$records = @(Import-Csv data\match-records.csv)
+$picks = @(Import-Csv data\match-picks.csv)
+$players = @(Import-Csv data\players.csv)
+$heroes = @(Import-Csv data\heroes.csv)
+$m010 = @($records | Where-Object { $_.id -eq 'M010' })
+$m010Picks = @($picks | Where-Object { $_.matchId -eq 'M010' })
+$missingPlayers = @($m010Picks | Where-Object { $id = $_.playerId; -not ($players | Where-Object { $_.id -eq $id }) })
+$missingHeroes = @($m010Picks | Where-Object { $id = $_.heroId; -not ($heroes | Where-Object { $_.id -eq $id }) })
+```
+
+Expected output:
+
+The submitted CSV data should contain 10 match records. Match record `M010` should exist and should have 5 hero pick rows. All player and hero references used by `M010` should exist in the submitted player and hero CSV files.
+
+Actual output:
+
+```text
+match-record-count=10
+m010-record-count=1
+m010-pick-count=5
+missing-player-refs=0
+missing-hero-refs=0
+```
+
+The restored record and hero pick rows were:
+
+```text
+M010,T001,Opponent 10,2026-05-25,LOSS
+M010,P001,H001
+M010,P002,H002
+M010,P003,H003
+M010,P004,H004
+M010,P005,H005
+```
+
+Result:
+
+Pass
+
+Bug found:
+
+None
+
 ## Test Summary
 
-Total test cases: 31
+Total test cases: 32
 
-- Pass: 30
+- Pass: 31
 - Partial Pass: 0
 - Fail: 1
 
@@ -1432,3 +1482,4 @@ Main notes:
 - Full code-level regression verified after extra feature implementation: no new functional bug was found.
 - Final full code regression verified after completing GUI combat and recommendation panels: all implemented code functions passed.
 - GUI startup mode fix verified: direct `--gui` launch opens successfully and console mode still works.
+- Submitted CSV data consistency verified: `data/match-records.csv` contains 10 records and restored `M010` has 5 valid hero pick rows.
