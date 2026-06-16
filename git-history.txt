@@ -1,5 +1,7 @@
-* 2862202 (HEAD -> main) [Fix] restore tenth match record in submitted CSV data
-* 4d2d785 (origin/main, origin/HEAD) [Docs] update git history export
+* 28d0c73 (HEAD -> main) [Test] verify restored submitted match record data
+* 2e8fc22 (origin/main, origin/HEAD) [Docs] update git history export
+* 2862202 [Fix] restore tenth match record in submitted CSV data
+* 4d2d785 [Docs] update git history export
 * a956ac2 [Docs] complete README structure and align AI reflection
 * 2971ae8 [Docs] update git history export
 * 207dd78 [Docs] update git ignore rules
